@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'scripts/generate_passwords.dart';
-import 'scripts/rename_files.dart';
+import 'generate_passwords.dart';
+import 'rename_files.dart';
 
 /// Usage:
 /// dart run scripts/rename.dart myapp
