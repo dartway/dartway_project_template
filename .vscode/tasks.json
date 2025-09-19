@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Dart Way: Check",
+            "type": "shell",
+            "command": "dart run dartway_code_checker:check_flutter_app",
+            "options": {
+                "cwd": "${workspaceFolder}/project_name_flutter"
+            },
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

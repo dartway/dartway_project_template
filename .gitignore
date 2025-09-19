@@ -1,0 +1,38 @@
+# IDE
+.idea/
+*.iml
+
+# Build & cache
+.dart_tool/
+build/
+.pub-cache/
+.packages
+
+# Locks
+pubspec.lock
+
+# Platforms (leave only Flutter code)
+ios/
+android/
+macos/
+windows/
+linux/
+project_name_flutter/web/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env & secrets
+.env
+.env.*
+*.keystore
+*.jks
+
+# Logs / coverage
+*.log
+coverage/
+
+
+migrations/
+docker-compose.yaml

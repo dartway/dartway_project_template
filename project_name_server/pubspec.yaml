@@ -1,0 +1,34 @@
+name: project_name_server
+description: Starting point for a Serverpod server.
+# version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  serverpod: 2.9.1
+
+  dartway_core_serverpod_server:
+    git:
+      url: https://github.com/dartway/dartway_core_serverpod.git
+      path: dartway_core_serverpod_server
+  dartway_auth_serverpod_server:
+    git:
+      url: https://github.com/dartway/dartway_auth_serverpod.git
+      path: dartway_auth_serverpod_server
+  http: ^1.5.0
+
+
+
+dev_dependencies:
+  lints: '>=3.0.0 <7.0.0'
+  test: '^1.24.2'
+  serverpod_test: 2.9.1
+
+dependency_overrides:
+  # Подключаются при доработке модулей для работы с локальными версиями
+  dartway_core_serverpod_server:
+    path: ../../dartway_core_serverpod/dartway_core_serverpod_server
+  dartway_auth_serverpod_server:
+    path: ../../dartway_auth_serverpod/dartway_auth_serverpod_server
