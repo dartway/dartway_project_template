@@ -17,6 +17,9 @@ Future<void> main() async {
 
   if (pull.exitCode != 0) {
     stderr.writeln('❌ Git subtree pull failed:\n${pull.stderr}');
+    stderr.writeln(
+      '💡 Hint: Commit or stash your changes before running update.',
+    );
     exit(1);
   }
   print('✅ Guidelines updated from remote.');
@@ -24,7 +27,7 @@ Future<void> main() async {
   // 2. Foundations → .cursor/rules/foundations
   _copyRules(
     'dartway/guidelines/dev-guidelines/foundations',
-    '.cursor/rules/foundations',
+    '.cursor/rules/dartway_rules',
   );
 
   // 3. Flutter → <project_name>_flutter/.cursor/rules/flutter
@@ -32,7 +35,7 @@ Future<void> main() async {
   if (flutterDir != null) {
     _copyRules(
       'dartway/guidelines/dev-guidelines/flutter',
-      '${flutterDir.path}/.cursor/rules/flutter',
+      '${flutterDir.path}/.cursor/rules/dartway_rules',
     );
   } else {
     print('⚠️ No *_flutter directory found');
@@ -43,7 +46,7 @@ Future<void> main() async {
   if (serverDir != null) {
     _copyRules(
       'dartway/guidelines/dev-guidelines/server',
-      '${serverDir.path}/.cursor/rules/server',
+      '${serverDir.path}/.cursor/rules/dartway_rules',
     );
   } else {
     print('⚠️ No *_server directory found');
