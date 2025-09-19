@@ -22,16 +22,13 @@ Future<void> main() async {
   print('✅ Guidelines updated from remote.');
 
   // 2. Foundations → .cursor/rules/foundations
-  _copyRules(
-    'dartway/guidelines/rules/foundations',
-    '.cursor/rules/foundations',
-  );
+  _copyRules('dartway/dev-guidelines/foundations', '.cursor/rules/foundations');
 
   // 3. Flutter → <project_name>_flutter/.cursor/rules/flutter
   final flutterDir = _findDirWithSuffix('_flutter');
   if (flutterDir != null) {
     _copyRules(
-      'dartway/guidelines/rules/flutter',
+      'dartway/dev-guidelines/flutter',
       '${flutterDir.path}/.cursor/rules/flutter',
     );
   } else {
@@ -42,7 +39,7 @@ Future<void> main() async {
   final serverDir = _findDirWithSuffix('_server');
   if (serverDir != null) {
     _copyRules(
-      'dartway/guidelines/rules/server',
+      'dartway/dev-guidelines/server',
       '${serverDir.path}/.cursor/rules/server',
     );
   } else {
