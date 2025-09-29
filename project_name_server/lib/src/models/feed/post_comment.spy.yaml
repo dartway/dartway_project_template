@@ -1,8 +1,0 @@
-class: PostComment
-table: post_comment
-fields:
-  content: String
-  appPost: AppPost?, relation(name=post_comments)
-  userProfileId: int?, relation(parent=user_profile)
-  createdAt: DateTime?
-  updatedAt: DateTime?

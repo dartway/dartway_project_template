@@ -14,13 +14,7 @@ import 'package:serverpod/protocol.dart' as _i2;
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
     as _i3;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
-import 'feed/app_post.dart' as _i5;
-import 'feed/post_comment.dart' as _i6;
-import 'user_profile/user_gender.dart' as _i7;
-import 'user_profile/user_profile.dart' as _i8;
-export 'feed/app_post.dart';
-export 'feed/post_comment.dart';
-export 'user_profile/user_gender.dart';
+import 'user_profile/user_profile.dart' as _i5;
 export 'user_profile/user_profile.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -31,156 +25,6 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
-    _i2.TableDefinition(
-      name: 'app_post',
-      dartName: 'AppPost',
-      schema: 'public',
-      module: 'project_name',
-      columns: [
-        _i2.ColumnDefinition(
-          name: 'id',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int?',
-          columnDefault: 'nextval(\'app_post_id_seq\'::regclass)',
-        ),
-        _i2.ColumnDefinition(
-          name: 'content',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
-          name: 'userProfileId',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: true,
-          dartType: 'int?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'createdAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: true,
-          dartType: 'DateTime?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'updatedAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: true,
-          dartType: 'DateTime?',
-        ),
-      ],
-      foreignKeys: [
-        _i2.ForeignKeyDefinition(
-          constraintName: 'app_post_fk_0',
-          columns: ['userProfileId'],
-          referenceTable: 'user_profile',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.noAction,
-          matchType: null,
-        )
-      ],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'app_post_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        )
-      ],
-      managed: true,
-    ),
-    _i2.TableDefinition(
-      name: 'post_comment',
-      dartName: 'PostComment',
-      schema: 'public',
-      module: 'project_name',
-      columns: [
-        _i2.ColumnDefinition(
-          name: 'id',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int?',
-          columnDefault: 'nextval(\'post_comment_id_seq\'::regclass)',
-        ),
-        _i2.ColumnDefinition(
-          name: 'content',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
-          name: 'appPostId',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int',
-        ),
-        _i2.ColumnDefinition(
-          name: 'userProfileId',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: true,
-          dartType: 'int?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'createdAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: true,
-          dartType: 'DateTime?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'updatedAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: true,
-          dartType: 'DateTime?',
-        ),
-      ],
-      foreignKeys: [
-        _i2.ForeignKeyDefinition(
-          constraintName: 'post_comment_fk_0',
-          columns: ['appPostId'],
-          referenceTable: 'app_post',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.noAction,
-          matchType: null,
-        ),
-        _i2.ForeignKeyDefinition(
-          constraintName: 'post_comment_fk_1',
-          columns: ['userProfileId'],
-          referenceTable: 'user_profile',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.noAction,
-          matchType: null,
-        ),
-      ],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'post_comment_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        )
-      ],
-      managed: true,
-    ),
     _i2.TableDefinition(
       name: 'user_profile',
       dartName: 'UserProfile',
@@ -230,12 +74,6 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: true,
           dartType: 'String?',
         ),
-        _i2.ColumnDefinition(
-          name: 'gender',
-          columnType: _i2.ColumnType.text,
-          isNullable: true,
-          dartType: 'protocol:UserGender?',
-        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
@@ -277,34 +115,11 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i5.AppPost) {
-      return _i5.AppPost.fromJson(data) as T;
+    if (t == _i5.UserProfile) {
+      return _i5.UserProfile.fromJson(data) as T;
     }
-    if (t == _i6.PostComment) {
-      return _i6.PostComment.fromJson(data) as T;
-    }
-    if (t == _i7.UserGender) {
-      return _i7.UserGender.fromJson(data) as T;
-    }
-    if (t == _i8.UserProfile) {
-      return _i8.UserProfile.fromJson(data) as T;
-    }
-    if (t == _i1.getType<_i5.AppPost?>()) {
-      return (data != null ? _i5.AppPost.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i6.PostComment?>()) {
-      return (data != null ? _i6.PostComment.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i7.UserGender?>()) {
-      return (data != null ? _i7.UserGender.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i8.UserProfile?>()) {
-      return (data != null ? _i8.UserProfile.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<List<_i6.PostComment>?>()) {
-      return (data != null
-          ? (data as List).map((e) => deserialize<_i6.PostComment>(e)).toList()
-          : null) as T;
+    if (t == _i1.getType<_i5.UserProfile?>()) {
+      return (data != null ? _i5.UserProfile.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -322,16 +137,7 @@ class Protocol extends _i1.SerializationManagerServer {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i5.AppPost) {
-      return 'AppPost';
-    }
-    if (data is _i6.PostComment) {
-      return 'PostComment';
-    }
-    if (data is _i7.UserGender) {
-      return 'UserGender';
-    }
-    if (data is _i8.UserProfile) {
+    if (data is _i5.UserProfile) {
       return 'UserProfile';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -355,17 +161,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
-    if (dataClassName == 'AppPost') {
-      return deserialize<_i5.AppPost>(data['data']);
-    }
-    if (dataClassName == 'PostComment') {
-      return deserialize<_i6.PostComment>(data['data']);
-    }
-    if (dataClassName == 'UserGender') {
-      return deserialize<_i7.UserGender>(data['data']);
-    }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i8.UserProfile>(data['data']);
+      return deserialize<_i5.UserProfile>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -403,12 +200,8 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i5.AppPost:
-        return _i5.AppPost.t;
-      case _i6.PostComment:
-        return _i6.PostComment.t;
-      case _i8.UserProfile:
-        return _i8.UserProfile.t;
+      case _i5.UserProfile:
+        return _i5.UserProfile.t;
     }
     return null;
   }

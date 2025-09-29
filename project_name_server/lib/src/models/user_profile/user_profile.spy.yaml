@@ -9,4 +9,3 @@ fields:
 
   firstName: String
   imageUrl: String?
-  gender: UserGender?
