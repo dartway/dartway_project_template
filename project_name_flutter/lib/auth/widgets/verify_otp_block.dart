@@ -22,14 +22,14 @@ class VerifyOtpBlock extends HookConsumerWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: AppText.title(
-              'Введите код из СМС',
+              'Enter the code from SMS',
             ),
           ),
           const Gap(12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: AppText.body(
-              'Отправили 6-значный код на номер\n${state.phoneRaw}',
+              'Sent 6-digit code to number\n${state.phoneRaw}',
               textAlign: TextAlign.center,
             ),
           ),
@@ -59,7 +59,7 @@ class VerifyOtpBlock extends HookConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: AppButton.primary(
-              'Продолжить',
+              'Continue',
               requireValidation: true,
               dwCallback: DwCallback.create(
                 ref.read(authStateProvider.notifier).verifyOtp,
@@ -80,7 +80,7 @@ class VerifyOtpBlock extends HookConsumerWidget {
           //           InkWell(
           //             onTap: () => focusNode.unfocus(),
           //             child: const ZAppText.sFProBodyRegularBlue(
-          //               'Готово',
+          //               'Done',
           //             ),
           //           ),
           //         ],

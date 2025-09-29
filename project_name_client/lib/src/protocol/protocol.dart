@@ -16,9 +16,7 @@ import 'user_profile/user_gender.dart' as _i4;
 import 'user_profile/user_profile.dart' as _i5;
 import 'package:dartway_core_serverpod_client/dartway_core_serverpod_client.dart'
     as _i6;
-import 'package:dartway_auth_serverpod_client/dartway_auth_serverpod_client.dart'
-    as _i7;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i8;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i7;
 export 'feed/app_post.dart';
 export 'feed/post_comment.dart';
 export 'user_profile/user_gender.dart';
@@ -73,9 +71,6 @@ class Protocol extends _i1.SerializationManager {
     try {
       return _i7.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
-    try {
-      return _i8.Protocol().deserialize<T>(data, t);
-    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
@@ -100,10 +95,6 @@ class Protocol extends _i1.SerializationManager {
       return 'dartway_core_serverpod.$className';
     }
     className = _i7.Protocol().getClassNameForObject(data);
-    if (className != null) {
-      return 'dartway_auth_serverpod.$className';
-    }
-    className = _i8.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -132,13 +123,9 @@ class Protocol extends _i1.SerializationManager {
       data['className'] = dataClassName.substring(23);
       return _i6.Protocol().deserializeByClassName(data);
     }
-    if (dataClassName.startsWith('dartway_auth_serverpod.')) {
-      data['className'] = dataClassName.substring(23);
-      return _i7.Protocol().deserializeByClassName(data);
-    }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i8.Protocol().deserializeByClassName(data);
+      return _i7.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

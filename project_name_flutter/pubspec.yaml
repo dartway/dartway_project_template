@@ -28,25 +28,18 @@ dependencies:
   project_name_client:
     path: ../project_name_client
 
-  nit_router: ^0.4.0
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.6.1
   freezed_annotation: ^2.4.4
   riverpod_annotation: ^2.6.1
 
-  nit_generic_forms: ^0.0.1
-
   dartway_app:
     git:
       url: https://github.com/dartway/dartway_app.git
-
-
-  # TODO: вынести эти зависимости в dartway_auth_serverpod_flutter
-  serverpod_auth_client: 2.9.1
-  dartway_auth_serverpod_client:
+  
+  dartway_router:
     git:
-      url: https://github.com/dartway/dartway_auth_serverpod.git
-      path: dartway_auth_serverpod_client
+      url: https://github.com/dartway/dartway_router.git
 
   dartway_core_serverpod_flutter:
     git:
@@ -78,23 +71,36 @@ dev_dependencies:
     git: https://github.com/dartway/dartway_code_checker.git
     # path: ../../dartway_code_checker
 
-# dependency_overrides:
-#   dartway_app:
-#     path:
-#       ../../dartway_app
+dependency_overrides:
+  dartway_app:
+    path:
+      ../../dartway_app
+  dartway_router:
+    path: ../../dartway_router
 
-#   dartway_core_serverpod_flutter:
-#     path: ../../dartway_core_serverpod/dartway_core_serverpod_flutter
-#   dartway_auth_serverpod_client:
-#     path: ../../dartway_auth_serverpod/dartway_auth_serverpod_client
+  dartway_core_serverpod_client: 
+    path: ../../dartway_core_serverpod/dartway_core_serverpod_client
+  dartway_core_serverpod_flutter: 
+    path: ../../dartway_core_serverpod/dartway_core_serverpod_flutter
+  dartway_core_serverpod_shared: 
+    path: ../../dartway_core_serverpod/dartway_core_serverpod_shared
 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter_native_splash:
-  color: "#FFFFFF"
-  image: assets/splash_screen_light.png
+  color: "#190022"                
+  image: assets/dartway_splash_logo.png    
+  branding: assets/dartway_splash_branding.png   
+
+  android: true
+  ios: true
+  web: true
+
+  android_12:
+    image: assets/dartway_splash_logo.png
+    icon_background_color: "#190022"
 
 flutter_gen:
   output: lib/ui_kit/gen/
@@ -112,7 +118,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - .env
     - assets/
 
 

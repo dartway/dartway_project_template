@@ -4,14 +4,14 @@ class AppText extends StatelessWidget {
   final String data;
   final _AppTextStyle _textStyle;
 
-  // Общие опции текста
+  // Common text options
   final TextAlign? textAlign;
   final int? maxLines;
   final TextOverflow? overflow;
   final bool? softWrap;
 
-  // Базовый приватный конструктор — поля одинаковы у всех стилей.
-  // Конструкторы-стили остаются const.
+  // Base private constructor — fields are the same for all styles.
+  // Style constructors remain const.
   const AppText._(
     this.data, {
     required _AppTextStyle textStyleVariant,

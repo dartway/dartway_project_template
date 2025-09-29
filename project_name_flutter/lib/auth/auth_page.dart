@@ -16,11 +16,8 @@ class AuthPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authStateProvider);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   ref.read(authStateProvider.notifier).openStream();
-    // });
-
     return AppScaffold.inner(
+      requireUser: false,
       appBar: AppBar(
         leading: state.currentStep.previousStep != null
             ? IconButton(

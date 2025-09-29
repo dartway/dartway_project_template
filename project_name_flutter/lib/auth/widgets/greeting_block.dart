@@ -17,15 +17,14 @@ class GreetingBlock extends ConsumerWidget {
         const Spacer(
           flex: 2,
         ),
-        const AppText.title('Next Level'),
+        const AppText.title('DartWay.dev'),
         const Gap(12),
-        const AppText.body(
-            'Выполните вход или зарегистрируйтесь, чтобы продолжить'),
+        const AppText.body('Complete login or registration to continue'),
         const Spacer(
           flex: 1,
         ),
         AppButton.primary(
-          'Регистрация',
+          'Registration',
           height: 40,
           width: 250,
           dwCallback: DwCallback.create(
@@ -36,7 +35,7 @@ class GreetingBlock extends ConsumerWidget {
         ),
         const Gap(20),
         AppButton.secondary(
-          'Вход',
+          'Login',
           height: 40,
           width: 250,
           dwCallback: DwCallback.create(

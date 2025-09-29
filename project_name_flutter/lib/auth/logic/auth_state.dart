@@ -1,11 +1,10 @@
 import 'package:dartway_app/dartway_app.dart';
-import 'package:dartway_auth_serverpod_client/dartway_auth_serverpod_client.dart';
+import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'auth_state_model.dart';
 import 'auth_step.dart';
-import 'dw_auth_state.dart';
 
 part 'auth_state.g.dart';
 
@@ -46,19 +45,19 @@ class AuthState extends _$AuthState {
   /// Отправка кода
   Future<void> requestOtp() async {
     final userExists = await ref
-        .read(dwAuthStateProvider.notifier)
+        .read(dwPhoneAuthStateProvider.notifier)
         .userExists(identifier: state.phoneDigits);
 
     if (state.currentStep == AuthStep.login && !userExists) {
       dw.notify.error(
-          'Учетная запись не найдена, укажите имя и примите условия пользовательского соглашения для продолжения');
+          'Account not found, enter your name and accept the user agreement for continued');
       goTo(AuthStep.registration);
       return;
     } else if (state.currentStep == AuthStep.registration && userExists) {
-      dw.notify.warning('Учетная уже существует, выполняем вход');
+      dw.notify.warning('Account already exists, performing login');
     }
 
-    await ref.read(dwAuthStateProvider.notifier).startVerification(
+    await ref.read(dwPhoneAuthStateProvider.notifier).startVerification(
           requestType: userExists
               ? DwPhoneVerificationRequestType.signIn
               : DwPhoneVerificationRequestType.registration,
@@ -72,20 +71,16 @@ class AuthState extends _$AuthState {
               : null,
         );
 
-    // локальный шаг — только проект решает
     state = state.copyWith(currentStep: state.currentStep.requestOtpNextStep);
   }
 
-  /// Подтверждение кода
+  /// Verification of the code
   Future<bool> verifyOtp() async {
-    final response = await ref.read(dwAuthStateProvider.notifier).verifyOtp(
-          phoneNumber: state.phoneDigits,
-          otpDigits: state.otpDigits,
-        );
-
-    // if (!response.success) {
-    //   state = state.copyWith(lastError: 'Неверный или просроченный код');
-    // }
+    final response =
+        await ref.read(dwPhoneAuthStateProvider.notifier).verifyOtp(
+              phoneNumber: state.phoneDigits,
+              otpDigits: state.otpDigits,
+            );
 
     return response.success;
   }

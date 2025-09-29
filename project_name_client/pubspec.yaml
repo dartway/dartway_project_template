@@ -7,11 +7,6 @@ environment:
 dependencies:
   serverpod_client: 2.9.1
 
-  dartway_auth_serverpod_client:
-    git:
-      url: https://github.com/dartway/dartway_auth_serverpod.git
-      path: dartway_auth_serverpod_client
-
   dartway_core_serverpod_client:
     git:
       url: https://github.com/dartway/dartway_core_serverpod.git

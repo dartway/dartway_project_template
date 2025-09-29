@@ -12,15 +12,15 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold.main(
       appBar: AppBar(
-        title: const AppText.title('Профиль'),
+        title: const AppText.title('Profile'),
       ),
       body: Column(
         children: [
-          const AppText.title('Здесь будут всякие настройки и все такое'),
+          const AppText.title('Here will be some settings and all that'),
           AppButton.text(
-            'Выйти',
+            'Sign out',
             dwCallback: DwCallback.create(
-              () => ref.read(dwSessionStateProvider.notifier).signOut(),
+              () => ref.signOut(),
             ),
           )
         ],

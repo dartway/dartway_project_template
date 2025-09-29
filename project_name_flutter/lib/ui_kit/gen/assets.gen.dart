@@ -14,12 +14,18 @@ import 'package:flutter/widgets.dart';
 class Assets {
   const Assets._();
 
-  static const String aEnv = '.env';
-  static const AssetGenImage splashScreenLight =
-      AssetGenImage('assets/splash_screen_light.png');
+  static const AssetGenImage dartwayBranding =
+      AssetGenImage('assets/dartway_branding.png');
+  static const AssetGenImage dartwayLogo =
+      AssetGenImage('assets/dartway_logo.png');
+  static const AssetGenImage dartwaySplashBranding =
+      AssetGenImage('assets/dartway_splash_branding.png');
+  static const AssetGenImage dartwaySplashLogo =
+      AssetGenImage('assets/dartway_splash_logo.png');
 
   /// List of all assets
-  static List<dynamic> get values => [aEnv, splashScreenLight];
+  static List<AssetGenImage> get values =>
+      [dartwayBranding, dartwayLogo, dartwaySplashBranding, dartwaySplashLogo];
 }
 
 class AssetGenImage {

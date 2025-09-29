@@ -1,9 +1,14 @@
+import 'package:conditional_parent_widget/conditional_parent_widget.dart';
+import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
+import 'package:dartway_router/dartway_router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nit_router/nit_router.dart';
+import 'package:project_name_client/project_name_client.dart';
 import 'package:project_name_flutter/build_info.dart';
 import 'package:project_name_flutter/core/router/router.dart';
 import 'package:project_name_flutter/ui_kit/ui_kit.dart';
+
+import '../core/user_profile_provider.dart';
 
 class AppScaffold extends ConsumerWidget {
   const AppScaffold.main({
@@ -11,6 +16,7 @@ class AppScaffold extends ConsumerWidget {
     required this.body,
     this.appBar,
     this.bodyInsets = const EdgeInsets.all(16),
+    this.requireUser = true,
   }) : showBottomNavigationBar = true;
 
   const AppScaffold.inner({
@@ -18,6 +24,7 @@ class AppScaffold extends ConsumerWidget {
     required this.body,
     this.appBar,
     this.bodyInsets = const EdgeInsets.all(16),
+    this.requireUser = true,
   }) : showBottomNavigationBar = false;
 
   final PreferredSizeWidget? appBar;
@@ -25,62 +32,60 @@ class AppScaffold extends ConsumerWidget {
   final EdgeInsets bodyInsets;
 
   final bool showBottomNavigationBar;
+  final bool requireUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return NitDeviceFrame(
-      body: Scaffold(
-        appBar: appBar,
-        body: Stack(
-          children: [
-            // твой контент
-            Padding(
-              padding: bodyInsets,
-              child: SizedBox.expand(
-                child: body,
-              ),
-            ),
-            // if (kDebugMode)
-            const Positioned(
-              right: 4,
-              bottom: 4,
-              child: Text(
-                BuildInfo.version,
-                style: TextStyle(fontSize: 8, color: Colors.blueGrey),
-              ),
-            ),
-          ],
+      body: ConditionalParentWidget(
+        condition: requireUser,
+        parentBuilder: (child) => SignedInUserScope<UserProfile>(
+          userProfileProvider: userProfileProvider,
+          child: child,
         ),
-        bottomNavigationBar: showBottomNavigationBar
-            ? const NitBottomNavigationBar(
-                bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                  selectedItemColor: Colors.blue,
-                  unselectedItemColor: Colors.lightBlueAccent,
-                  showUnselectedLabels: true,
+        child: Scaffold(
+          appBar: appBar,
+          body: Stack(
+            children: [
+              Padding(
+                padding: bodyInsets,
+                child: SizedBox.expand(
+                  child: body,
                 ),
-                menuItems: [
-                  NitMenuItem.icon(
+              ),
+              // if (kDebugMode)
+              const Positioned(
+                right: 4,
+                bottom: 4,
+                child: Text(
+                  BuildInfo.version,
+                  style: TextStyle(fontSize: 8, color: Colors.blueGrey),
+                ),
+              ),
+            ],
+          ),
+          bottomNavigationBar: showBottomNavigationBar
+              ? const DwBottomNavigationBar(
+                  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    selectedItemColor: Colors.blue,
+                    unselectedItemColor: Colors.lightBlueAccent,
+                    showUnselectedLabels: true,
+                  ),
+                  menuItems: [
+                    DwMenuItem.icon(
                       route: AppNavigationZone.home,
-                      displayTitle: 'Домой',
-                      iconData: Icons.home),
-                  NitMenuItem.icon(
-                    route: AppNavigationZone.learning,
-                    displayTitle: 'Обучение',
-                    iconData: Icons.book,
-                  ),
-                  NitMenuItem.icon(
-                    route: AppNavigationZone.aiAssistant,
-                    displayTitle: 'Ассистент',
-                    iconData: Icons.person_add_alt_1,
-                  ),
-                  NitMenuItem.icon(
-                    route: AppNavigationZone.profile,
-                    displayTitle: 'Профиль',
-                    iconData: Icons.settings,
-                  ),
-                ],
-              )
-            : null,
+                      displayTitle: 'Home',
+                      iconData: Icons.home,
+                    ),
+                    DwMenuItem.icon(
+                      route: AppNavigationZone.profile,
+                      displayTitle: 'Profile',
+                      iconData: Icons.settings,
+                    ),
+                  ],
+                )
+              : null,
+        ),
       ),
     );
   }

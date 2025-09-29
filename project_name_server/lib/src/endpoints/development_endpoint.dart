@@ -16,7 +16,7 @@ class DevelopmentEndpoint extends Endpoint {
       throw Exception('User not found');
     }
 
-    await session.dwSendUpdatesToUser(
+    await session.sendUpdatesToUser(
       userId,
       updatedModels: [
         DwAppNotification(

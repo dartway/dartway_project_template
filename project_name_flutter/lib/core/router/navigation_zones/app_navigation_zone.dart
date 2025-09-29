@@ -6,16 +6,7 @@ enum AppNavigationZone implements NavigationZoneRoute {
       page: HomePage(),
     ),
   ),
-  learning(
-    SimpleNavigationRouteDescriptor(
-      page: LearningPage(),
-    ),
-  ),
-  aiAssistant(
-    SimpleNavigationRouteDescriptor(
-      page: AiAssistantPage(),
-    ),
-  ),
+
   profile(
     SimpleNavigationRouteDescriptor(
       page: ProfilePage(),

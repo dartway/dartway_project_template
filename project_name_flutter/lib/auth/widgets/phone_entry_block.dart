@@ -33,19 +33,19 @@ class PhoneEntryBlock extends HookConsumerWidget {
     return Column(
       children: [
         const AppText.title(
-          'Укажите ваши данные',
+          'Fill registration data',
         ),
         const Gap(36),
         if (isRegistration)
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: AppTextFormField(
-              labelText: 'Имя',
+              labelText: 'Name',
               value: state.firstName,
               onChanged: (value) =>
                   ref.read(authStateProvider.notifier).update(firstName: value),
               validator: (p0) => p0 == null || p0.isEmpty || p0.length < 3
-                  ? 'Обязательное поле'
+                  ? 'Required field'
                   : null,
             ),
           ),
@@ -59,27 +59,26 @@ class PhoneEntryBlock extends HookConsumerWidget {
             padding: const EdgeInsets.only(top: 24.0),
             child: CheckboxFormField(
               value: state.allDocumentsAccepted,
-              onChanged: (value) =>
-                  {}, //ref.read(authStateProvider.notifier).update),
-
-              validator: (value) =>
-                  value != true ? 'Необходимо дать согласие' : null,
+              onChanged: (value) => ref
+                  .read(authStateProvider.notifier)
+                  .update(allDocumentsAccepted: value),
+              validator: (value) => value != true ? 'You must agree' : null,
               titleWidget: MultiLinkText.multi(
                 textAlign: TextAlign.start,
                 parts: [
                   MultiLinkTextPart(
-                    'Я ознакомлен(а) и даю согласие с условиями',
-                    'оферты,',
+                    'I am familiar with and agree to the terms of the',
+                    'offer,',
                     wipProgressNotificationCallback,
                   ),
                   MultiLinkTextPart(
                     null,
-                    'пользовательского соглашения,',
+                    'user agreement,',
                     wipProgressNotificationCallback,
                   ),
                   MultiLinkTextPart(
-                    'принимаю условия',
-                    'политики обработки персональных данных',
+                    'I accept the terms of the',
+                    'data processing policy,',
                     wipProgressNotificationCallback,
                   ),
                 ],
@@ -90,25 +89,26 @@ class PhoneEntryBlock extends HookConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: CheckboxFormField(
-              value: state.allDocumentsAccepted,
-              onChanged: (value) =>
-                  {}, //ref.read(authStateProvider.notifier).update),
+              value: state.marketingAgreed,
+              onChanged: (value) => ref
+                  .read(authStateProvider.notifier)
+                  .update(marketingAgreed: value),
               titleWidget: MultiLinkText.multi(
                 textAlign: TextAlign.start,
                 parts: [
                   MultiLinkTextPart(
-                    'Я даю',
-                    'согласие',
+                    'I give',
+                    'consent',
                     wipProgressNotificationCallback,
                   ),
                   MultiLinkTextPart(
-                    'на получение информационной и рекламной рассылки, в связи с чем даю',
-                    'согласие',
+                    'on receiving informational and promotional mailings, therefore I give',
+                    'consent',
                     wipProgressNotificationCallback,
                   ),
                   MultiLinkTextPart(
-                    'на обработку персональных данных в соответствии с',
-                    'политикой обработки персональных данных',
+                    'on processing personal data in accordance with the',
+                    'data processing policy',
                     wipProgressNotificationCallback,
                   ),
                 ],
@@ -118,7 +118,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
         const Spacer(),
         const SizedBox(height: 20),
         AppButton.primary(
-          'Продолжить',
+          'Continue',
           requireValidation: true,
           dwCallback: DwCallback.create(() async {
             await ref.read(authStateProvider.notifier).requestOtp();
@@ -127,16 +127,16 @@ class PhoneEntryBlock extends HookConsumerWidget {
         const Gap(24),
         isRegistration
             ? MultiLinkText.single(
-                text: 'Уже есть аккаунт? ',
-                linkText: 'Войти',
+                text: 'Already have an account? ',
+                linkText: 'Login',
                 onLinkTap: DwCallback.create(
                   () =>
                       ref.read(authStateProvider.notifier).goTo(AuthStep.login),
                 ),
               )
             : MultiLinkText.single(
-                text: 'Еще нет аккаунта? ',
-                linkText: 'Регистрация',
+                text: 'Still no account? ',
+                linkText: 'Registration',
                 onLinkTap: DwCallback.create(
                   () => ref
                       .read(authStateProvider.notifier)

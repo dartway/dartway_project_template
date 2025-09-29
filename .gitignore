@@ -24,8 +24,6 @@ project_name_flutter/web/
 Thumbs.db
 
 # Env & secrets
-.env
-.env.*
 *.keystore
 *.jks
 

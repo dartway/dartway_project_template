@@ -63,7 +63,6 @@ extension ShowAppBottomSheetExtension on BuildContext {
                       height: 4,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          // color: AppColors._grayDefault,
                           borderRadius: BorderRadius.all(
                             Radius.circular(100),
                           ),

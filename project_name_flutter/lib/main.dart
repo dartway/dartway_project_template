@@ -33,7 +33,6 @@ void main() async {
               BuildInfo.backendUrl,
             ),
             initRepositoryFunction: DefaultModels.initRepository,
-            userIdMode: UserIdMode.userProfileId,
           ),
     ],
   ).run();

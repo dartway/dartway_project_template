@@ -1,0 +1,131 @@
+---
+description: General Flutter Application Architecture with DartWay
+globs:
+alwaysApply: true
+---
+
+## 1. Concept
+
+DartWay architecture is very specific and restrictive with a focus on code simplicity and developer productivity.  
+Please follow the docs to get all the benefits.
+
+Key concepts:
+- **Feature-based**: code is split into independent features with strict borders.  
+- **Minimal boilerplate**: no abstractions for the sake of architecture.  
+- **Generic data layer**: everything is covered by DartWay — no more repos, DI, or sync issues.  
+- **AI-friendly**: project structure and rules are optimized for AI assistants (Cursor, ChatGPT). 
+
+---
+
+## 2. Project Structure
+
+Our key goal is to keep everything as lean as possible. Thus we suggest very strict feature based project structure with predefined list of folders. 
+
+- **Features**: /admin, /app, /auth and /common folders are intended for features, each feature should have a separate folder, use subfolders for better structure
+- **Core**: /core - all project wide things, such as (router, repository configurattion, etc.) should go here 
+- **Domain**: /domain - all business logic should go here as extension on Serverpod generated models and base classes (don't put feature specific presentation logic here)   
+- **UI Kit**: /ui_kit - the folder for all UI related things project structure and rules are optimized for AI assistants (Cursor, ChatGPT). All files inside should be joined via part directives in order to ease dependencies clarity.
+
+lib/
+├─ app/ # Main application features
+│ ├─ home/ # Example: Home screen
+│ ├─ profile/ # Example: User profile
+│ └─ ...
+├─ auth/ # Authentication module (login, signup, tokens)
+├─ common/ # Shared utilities, configs, navigation
+├─ ui_kit/ui_kit.dart # Unified entry point for all UI components
+├─ build_info.dart - build configuration vars (should be generated automatically for release builds)
+└─ main.dart # App entry point
+
+
+---
+
+## 3. Rules & Restrictions
+
+- ❌ Inside `app/`, `auth/`, `common/` you **cannot use directly**:  
+  - `Color`, `TextStyle`, `BorderRadius`  
+  - `context.textTheme`, `context.colorScheme`  
+
+- ✅ UI styles and theming are available **only via `ui_kit.dart`**.  
+- ✅ Each feature has a clear structure:  
+  - `models/` — DTOs, domain models  
+  - `services/` — API/data services with DartWay  
+  - `widgets/` — reusable UI components for the feature  
+  - `pages/` — screens  
+
+---
+
+## 4. Navigation
+
+Navigation is powered by **`dartway_router`** (wrapper over GoRouter):  
+- all routes configured with `NavigationZoneRoute` enums
+- redirects and params are handled with special mechanisms  
+- `DwBottomNavigationBar` and `DwMenuItem` provide easy navigation bar configuration.  
+
+For a step-by-step explanation and examples, read the [Navigation Guide](./navigation.md).
+
+5. Data Layer
+Backend — Serverpod.
+DartWay generates a data access layer on the frontend.
+Models are synchronized automatically (single source of truth).
+Out of the box: CRUD, filtering, sorting, pagination, realtime via WebSocket.
+
+6. Example Feature
+markdown
+Copy code
+app/
+ └─ todos/
+     ├─ models/
+     │   └─ todo.dart
+     ├─ services/
+     │   └─ todo_service.dart
+     ├─ pages/
+     │   └─ todo_list_page.dart
+     └─ widgets/
+         └─ todo_tile.dart
+todo_service.dart:
+
+dart
+Copy code
+final todosProvider = DwCrudProvider<Todo>(
+  table: 'todos',
+  fromJson: Todo.fromJson,
+);
+todo_list_page.dart:
+
+dart
+Copy code
+class TodoListPage extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(todosProvider.list());
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Todos')),
+      body: todos.nitWhen(
+        data: (items) => ListView(
+          children: items.map(TodoTile.new).toList(),
+        ),
+        loading: () => CircularProgressIndicator(),
+        error: (e, _) => Text('Error: $e'),
+      ),
+    );
+  }
+}
+7. Testing & CI/CD
+Each feature can be tested in isolation.
+
+Models and migrations are generated via dartway cli.
+
+GitHub Actions or CI scripts run automated checks.
+
+8. Adding a New Feature
+Create a folder under app/ (e.g. my_feature/).
+
+Define models in models/.
+
+Add service logic in services/ (CRUD or custom).
+
+Implement UI in pages/ and widgets/.
+
+Register a route in router.dart.

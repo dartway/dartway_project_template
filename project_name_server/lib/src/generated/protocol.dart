@@ -13,13 +13,11 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
     as _i3;
-import 'package:dartway_auth_serverpod_server/dartway_auth_serverpod_server.dart'
-    as _i4;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i5;
-import 'feed/app_post.dart' as _i6;
-import 'feed/post_comment.dart' as _i7;
-import 'user_profile/user_gender.dart' as _i8;
-import 'user_profile/user_profile.dart' as _i9;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
+import 'feed/app_post.dart' as _i5;
+import 'feed/post_comment.dart' as _i6;
+import 'user_profile/user_gender.dart' as _i7;
+import 'user_profile/user_profile.dart' as _i8;
 export 'feed/app_post.dart';
 export 'feed/post_comment.dart';
 export 'user_profile/user_gender.dart';
@@ -270,7 +268,6 @@ class Protocol extends _i1.SerializationManagerServer {
     ),
     ..._i3.Protocol.targetTableDefinitions,
     ..._i4.Protocol.targetTableDefinitions,
-    ..._i5.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
   ];
 
@@ -280,33 +277,33 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i6.AppPost) {
-      return _i6.AppPost.fromJson(data) as T;
+    if (t == _i5.AppPost) {
+      return _i5.AppPost.fromJson(data) as T;
     }
-    if (t == _i7.PostComment) {
-      return _i7.PostComment.fromJson(data) as T;
+    if (t == _i6.PostComment) {
+      return _i6.PostComment.fromJson(data) as T;
     }
-    if (t == _i8.UserGender) {
-      return _i8.UserGender.fromJson(data) as T;
+    if (t == _i7.UserGender) {
+      return _i7.UserGender.fromJson(data) as T;
     }
-    if (t == _i9.UserProfile) {
-      return _i9.UserProfile.fromJson(data) as T;
+    if (t == _i8.UserProfile) {
+      return _i8.UserProfile.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i6.AppPost?>()) {
-      return (data != null ? _i6.AppPost.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.AppPost?>()) {
+      return (data != null ? _i5.AppPost.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i7.PostComment?>()) {
-      return (data != null ? _i7.PostComment.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.PostComment?>()) {
+      return (data != null ? _i6.PostComment.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i8.UserGender?>()) {
-      return (data != null ? _i8.UserGender.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i7.UserGender?>()) {
+      return (data != null ? _i7.UserGender.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.UserProfile?>()) {
-      return (data != null ? _i9.UserProfile.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i8.UserProfile?>()) {
+      return (data != null ? _i8.UserProfile.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<List<_i7.PostComment>?>()) {
+    if (t == _i1.getType<List<_i6.PostComment>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i7.PostComment>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i6.PostComment>(e)).toList()
           : null) as T;
     }
     try {
@@ -314,9 +311,6 @@ class Protocol extends _i1.SerializationManagerServer {
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     try {
       return _i4.Protocol().deserialize<T>(data, t);
-    } on _i1.DeserializationTypeNotFoundException catch (_) {}
-    try {
-      return _i5.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -328,16 +322,16 @@ class Protocol extends _i1.SerializationManagerServer {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i6.AppPost) {
+    if (data is _i5.AppPost) {
       return 'AppPost';
     }
-    if (data is _i7.PostComment) {
+    if (data is _i6.PostComment) {
       return 'PostComment';
     }
-    if (data is _i8.UserGender) {
+    if (data is _i7.UserGender) {
       return 'UserGender';
     }
-    if (data is _i9.UserProfile) {
+    if (data is _i8.UserProfile) {
       return 'UserProfile';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -349,10 +343,6 @@ class Protocol extends _i1.SerializationManagerServer {
       return 'dartway_core_serverpod.$className';
     }
     className = _i4.Protocol().getClassNameForObject(data);
-    if (className != null) {
-      return 'dartway_auth_serverpod.$className';
-    }
-    className = _i5.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -366,16 +356,16 @@ class Protocol extends _i1.SerializationManagerServer {
       return super.deserializeByClassName(data);
     }
     if (dataClassName == 'AppPost') {
-      return deserialize<_i6.AppPost>(data['data']);
+      return deserialize<_i5.AppPost>(data['data']);
     }
     if (dataClassName == 'PostComment') {
-      return deserialize<_i7.PostComment>(data['data']);
+      return deserialize<_i6.PostComment>(data['data']);
     }
     if (dataClassName == 'UserGender') {
-      return deserialize<_i8.UserGender>(data['data']);
+      return deserialize<_i7.UserGender>(data['data']);
     }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i9.UserProfile>(data['data']);
+      return deserialize<_i8.UserProfile>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -385,13 +375,9 @@ class Protocol extends _i1.SerializationManagerServer {
       data['className'] = dataClassName.substring(23);
       return _i3.Protocol().deserializeByClassName(data);
     }
-    if (dataClassName.startsWith('dartway_auth_serverpod.')) {
-      data['className'] = dataClassName.substring(23);
-      return _i4.Protocol().deserializeByClassName(data);
-    }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i5.Protocol().deserializeByClassName(data);
+      return _i4.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
@@ -411,24 +397,18 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     {
-      var table = _i5.Protocol().getTableForType(t);
-      if (table != null) {
-        return table;
-      }
-    }
-    {
       var table = _i2.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }
     }
     switch (t) {
-      case _i6.AppPost:
-        return _i6.AppPost.t;
-      case _i7.PostComment:
-        return _i7.PostComment.t;
-      case _i9.UserProfile:
-        return _i9.UserProfile.t;
+      case _i5.AppPost:
+        return _i5.AppPost.t;
+      case _i6.PostComment:
+        return _i6.PostComment.t;
+      case _i8.UserProfile:
+        return _i8.UserProfile.t;
     }
     return null;
   }

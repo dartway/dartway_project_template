@@ -8,7 +8,7 @@ class PhoneTextField extends StatefulWidget {
     this.additionValidator,
     this.enabled,
     this.focusNode,
-    this.labelText = 'Телефон',
+    this.labelText = 'Phone',
     this.hintText = '+7 (___) ___-__-__',
     this.textInputAction,
     this.autofillHints = const [AutofillHints.telephoneNumber],
@@ -103,10 +103,10 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         final digits = text.replaceAll(RegExp(r'\D'), '');
         if (text.isEmpty ||
             text.length == RuPhoneMaskFormatter.minText().length) {
-          return 'Обязательное поле';
+          return 'Required field';
         }
         if (digits.length < 11) {
-          return 'Некорректный номер';
+          return 'Invalid number';
         }
         if (widget.additionValidator != null) {
           return widget.additionValidator!(text);

@@ -51,12 +51,11 @@ class CheckboxFormField extends StatelessWidget {
               onChanged: enabled
                   ? (checked) {
                       final next = checked ?? false;
-                      // Обновляем обе стороны: FormFieldState и ValueNotifier
                       if ((fieldState.value ?? false) != next) {
                         fieldState.didChange(next);
                       }
                       if (value != next) {
-                        onChanged(value);
+                        onChanged(next);
                       }
                     }
                   : null,

@@ -3,7 +3,7 @@ part of '../ui_kit.dart';
 class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
-    // главный контракт: контролируемое значение + onChanged
+    // main contract: controlled value + onChanged
     required this.value,
     required this.onChanged,
     this.enabled,
@@ -22,8 +22,8 @@ class AppTextFormField extends StatefulWidget {
     this.obscureText = false,
     this.readOnly = false,
 
-    /// Если true — при внешнем обновлении текста курсор ставим в конец.
-    /// Это наиболее предсказуемо для масок/форматтеров.
+    /// If true — when the text is updated externally, the cursor is placed at the end.
+    /// This is the most predictable for masks/formatters.
     this.cursorToEndOnExternalUpdate = true,
   });
 
@@ -50,7 +50,7 @@ class AppTextFormField extends StatefulWidget {
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
 
-  /// Удобный адаптер, если где-то ещё остался ValueNotifier<String>.
+  /// Convenient adapter if there is still ValueNotifier<String> somewhere.
   factory AppTextFormField.fromStringNotifier({
     Key? key,
     required ValueNotifier<String> valueNotifier,
@@ -110,7 +110,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   @override
   void didUpdateWidget(covariant AppTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Синхронизируем контроллер, если внешнее значение поменялось.
+    // Synchronize the controller if the external value has changed.
     if (widget.value != _lastExternalValue &&
         widget.value != _controller.text) {
       _syncControllerText(widget.value,
@@ -132,7 +132,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         ? TextSelection.collapsed(offset: newText.length)
         : _controller.selection;
 
-    // Сброс composing нужен, чтобы не застревала IME-сессия
+    // Reset composing needed to prevent IME session from hanging
     _controller.value = TextEditingValue(
       text: newText,
       selection: newSelection,

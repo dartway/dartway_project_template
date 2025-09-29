@@ -1,9 +1,8 @@
-import 'package:dartway_auth_serverpod_server/dartway_auth_serverpod_server.dart'
-    as dartway_auth;
+import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
+    show authenticationHandler;
 import 'package:project_name_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
 
-import 'src/dartway/dartway_auth.dart';
 import 'src/dartway/dartway_core.dart';
 import 'src/generated/endpoints.dart';
 import 'src/generated/protocol.dart';
@@ -18,7 +17,7 @@ void run(List<String> args) async {
     args,
     Protocol(),
     Endpoints(),
-    authenticationHandler: dartway_auth.authenticationHandler,
+    authenticationHandler: authenticationHandler,
   );
 
   // Setup a default page at the web root.
@@ -30,8 +29,7 @@ void run(List<String> args) async {
     '/*',
   );
 
-  await initDartwayCore(pod);
-  await initDartwayAuth(pod);
+  initDartwayCore(pod);
 
   await pod.start();
 }

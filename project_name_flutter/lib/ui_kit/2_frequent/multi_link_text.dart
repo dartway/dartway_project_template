@@ -28,7 +28,6 @@ class MultiLinkText extends StatefulWidget {
   });
 
   final TextAlign? textAlign;
-
   final List<MultiLinkTextPart> parts;
 
   @override
@@ -36,33 +35,24 @@ class MultiLinkText extends StatefulWidget {
 }
 
 class _MultiLinkTextState extends State<MultiLinkText> {
-  List<TapGestureRecognizer?>? _recognizers;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   for (var e in widget.parts) {
-  //     final t = e.linkText != null && e.onLinkTap != null
-  //         ? TapGestureRecognizer()
-  //         : null;
-  //     if (t != null) {
-  //       t.onTap = () => e.onLinkTap!.call(context);
-  //     }
-
-  //     _recognizers.add(t);
-  //   }
-  // }
+  late List<TapGestureRecognizer?> _recognizers;
 
   @override
-  void dispose() {
-    _recognizers?.forEach((r) => r?.dispose());
-
-    super.dispose();
+  void initState() {
+    super.initState();
+    _initRecognizers();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didUpdateWidget(MultiLinkText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.parts != widget.parts) {
+      _disposeRecognizers();
+      _initRecognizers();
+    }
+  }
+
+  void _initRecognizers() {
     _recognizers = widget.parts.map((e) {
       if (e.linkText != null && e.onLinkTap != null) {
         final recognizer = TapGestureRecognizer()
@@ -71,7 +61,22 @@ class _MultiLinkTextState extends State<MultiLinkText> {
       }
       return null;
     }).toList();
+  }
 
+  void _disposeRecognizers() {
+    for (final r in _recognizers) {
+      r?.dispose();
+    }
+  }
+
+  @override
+  void dispose() {
+    _disposeRecognizers();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RichText(
       textAlign: widget.textAlign ?? TextAlign.center,
       text: TextSpan(
@@ -81,7 +86,7 @@ class _MultiLinkTextState extends State<MultiLinkText> {
               .mapIndexed(
                 (i, e) => <InlineSpan>[
                   if (i != 0) const TextSpan(text: ' '),
-                  if (e.text != null) TextSpan(text: '${e.text}'),
+                  if (e.text != null) TextSpan(text: e.text),
                   if (e.text != null && e.linkText != null)
                     const TextSpan(text: ' '),
                   if (e.linkText != null)
@@ -90,11 +95,11 @@ class _MultiLinkTextState extends State<MultiLinkText> {
                       style: _AppTextStyle.body._resolve(context).copyWith(
                             color: context.colorScheme.secondary,
                           ),
-                      recognizer: _recognizers![i],
+                      recognizer: _recognizers[i],
                     ),
                 ],
               )
-              .expand((sublist) => sublist)
+              .expand((sublist) => sublist),
         ],
       ),
     );

@@ -3,39 +3,39 @@ import 'package:project_name_flutter/auth/logic/auth_step.dart';
 
 part 'auth_state_model.freezed.dart';
 
-/// Иммутабельная модель состояния без ValueNotifier внутри.
-/// Ввод пользователя хранится в простых строках, бизнес-флаги — отдельными полями.
+/// Immutable state model for authentication process
+/// User input is stored in simple strings, business flags are separate fields.
 @freezed
 class AuthStateModel with _$AuthStateModel {
   const factory AuthStateModel({
     required AuthStep currentStep,
 
-    // Поля ввода
+    // Input fields
     required String firstName,
     required String phoneRaw,
     required String otpRaw,
 
-    // Согласия
+    // Agreements
     required bool allDocumentsAccepted,
     required bool marketingAgreed,
   }) = _AuthStateModel;
 
   const AuthStateModel._();
 
-  /// Нормализованный телефон: только цифры
+  /// Normalized phone: only digits
   String get phoneDigits => phoneRaw.replaceAll(RegExp(r'\D'), '');
 
-  /// Нормализованный код: только цифры
+  /// Normalized code: only digits
   String get otpDigits => otpRaw.replaceAll(RegExp(r'\D'), '');
 
-  /// Простая проверка телефона (10–15 цифр)
+  /// Simple phone check (10–15 digits)
   bool get isPhoneValid => phoneDigits.length >= 10 && phoneDigits.length <= 15;
 
-  /// Требования для запроса кода на шаге регистрации
+  /// Requirements for requesting code on the registration step
   bool get registrationPrerequisitesOk =>
       firstName.trim().isNotEmpty && allDocumentsAccepted;
 
-  /// Можно ли запрашивать OTP прямо сейчас
+  /// Can we request OTP right now
   bool get canRequestOtp {
     if (!isPhoneValid) return false;
     if (currentStep == AuthStep.registration && !registrationPrerequisitesOk) {
@@ -45,7 +45,7 @@ class AuthStateModel with _$AuthStateModel {
     // !isRequestingOtp && !isVerifyingOtp;
   }
 
-  /// Можно ли подтверждать код
+  /// Can we verify the code
   bool get canVerifyOtp =>
       otpDigits.isNotEmpty; // && !isRequestingOtp && !isVerifyingOtp;
 }

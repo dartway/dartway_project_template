@@ -2,22 +2,26 @@ import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart
 import 'package:project_name_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
-import '../crud/user_profile_config.dart';
-
 late final DwCore<UserProfile> dw;
 
 initDartwayCore(Serverpod serverpod) {
-  dw = DwCore<UserProfile>(
-    userProfileGetter: (
-      Session session, {
+  dw = DwCore.init<UserProfile>(
+    userProfileTable: UserProfile.t,
+    crudConfigurations: [],
+    userProfileConstructor: ({
       required int userInfoId,
+      required DwAuthDataStash dwDataStash,
     }) async =>
-        UserProfile.db.findFirstRow(
-      session,
-      where: (t) => t.userInfoId.equals(userInfoId),
+        UserProfile(
+      userInfoId: userInfoId,
+      phone: dwDataStash.identifier,
+      firstName: dwDataStash.data['firstName'] ?? '',
+      conditionsAcceptedAt: DateTime.now(),
+      agreedForMarketingCommunications: bool.tryParse(
+              dwDataStash.data['agreedForMarketingCommunications'] ?? '') ??
+          false,
     ),
-    crudConfigurations: <DwCrudConfig>[
-      userProfileConfig,
-    ],
   );
+
+  DwPhoneAuthConfig.set(DwPhoneAuthConfig.defaultDevelopmentConfig);
 }

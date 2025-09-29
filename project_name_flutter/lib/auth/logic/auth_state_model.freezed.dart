@@ -16,10 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthStateModel {
-  AuthStep get currentStep => throw _privateConstructorUsedError; // Поля ввода
+  AuthStep get currentStep =>
+      throw _privateConstructorUsedError; // Input fields
   String get firstName => throw _privateConstructorUsedError;
   String get phoneRaw => throw _privateConstructorUsedError;
-  String get otpRaw => throw _privateConstructorUsedError; // Согласия
+  String get otpRaw => throw _privateConstructorUsedError; // Agreements
   bool get allDocumentsAccepted => throw _privateConstructorUsedError;
   bool get marketingAgreed => throw _privateConstructorUsedError;
 
@@ -176,14 +177,14 @@ class _$AuthStateModelImpl extends _AuthStateModel {
 
   @override
   final AuthStep currentStep;
-// Поля ввода
+// Input fields
   @override
   final String firstName;
   @override
   final String phoneRaw;
   @override
   final String otpRaw;
-// Согласия
+// Agreements
   @override
   final bool allDocumentsAccepted;
   @override
@@ -237,13 +238,13 @@ abstract class _AuthStateModel extends AuthStateModel {
   const _AuthStateModel._() : super._();
 
   @override
-  AuthStep get currentStep; // Поля ввода
+  AuthStep get currentStep; // Input fields
   @override
   String get firstName;
   @override
   String get phoneRaw;
   @override
-  String get otpRaw; // Согласия
+  String get otpRaw; // Agreements
   @override
   bool get allDocumentsAccepted;
   @override

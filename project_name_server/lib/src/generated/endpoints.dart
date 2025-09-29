@@ -13,9 +13,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/development_endpoint.dart' as _i2;
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
     as _i3;
-import 'package:dartway_auth_serverpod_server/dartway_auth_serverpod_server.dart'
-    as _i4;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i5;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -55,8 +53,6 @@ class Endpoints extends _i1.EndpointDispatch {
     );
     modules['dartway_core_serverpod'] = _i3.Endpoints()
       ..initializeEndpoints(server);
-    modules['dartway_auth_serverpod'] = _i4.Endpoints()
-      ..initializeEndpoints(server);
-    modules['serverpod_auth'] = _i5.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i4.Endpoints()..initializeEndpoints(server);
   }
 }

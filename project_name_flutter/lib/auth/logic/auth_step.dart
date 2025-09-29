@@ -1,24 +1,24 @@
-import 'package:dartway_auth_serverpod_client/dartway_auth_serverpod_client.dart';
+import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
 
 enum AuthStep {
   greeting(
-    title: 'Добро пожаловать!',
+    title: 'Welcome!',
     previousStep: null,
   ),
   registration(
-    title: 'Шаг 1 из 3',
+    title: 'Step 1 of 3',
     previousStep: greeting,
   ),
   login(
-    title: 'Шаг 1 из 2',
+    title: 'Step 1 of 2',
     previousStep: greeting,
   ),
   registrationConfirmation(
-    title: 'Шаг 2 из 3',
+    title: 'Step 2 of 3',
     previousStep: registration,
   ),
   loginConfirmation(
-    title: 'Шаг 2 из 2',
+    title: 'Step 2 of 2',
     previousStep: login,
   );
 
