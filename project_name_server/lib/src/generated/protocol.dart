@@ -14,7 +14,9 @@ import 'package:serverpod/protocol.dart' as _i2;
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
     as _i3;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
-import 'user_profile/user_profile.dart' as _i5;
+import 'user_profile/user_gender.dart' as _i5;
+import 'user_profile/user_profile.dart' as _i6;
+export 'user_profile/user_gender.dart';
 export 'user_profile/user_profile.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -74,6 +76,12 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: true,
           dartType: 'String?',
         ),
+        _i2.ColumnDefinition(
+          name: 'gender',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'protocol:UserGender?',
+        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
@@ -115,11 +123,17 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i5.UserProfile) {
-      return _i5.UserProfile.fromJson(data) as T;
+    if (t == _i5.UserGender) {
+      return _i5.UserGender.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i5.UserProfile?>()) {
-      return (data != null ? _i5.UserProfile.fromJson(data) : null) as T;
+    if (t == _i6.UserProfile) {
+      return _i6.UserProfile.fromJson(data) as T;
+    }
+    if (t == _i1.getType<_i5.UserGender?>()) {
+      return (data != null ? _i5.UserGender.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i6.UserProfile?>()) {
+      return (data != null ? _i6.UserProfile.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -137,7 +151,10 @@ class Protocol extends _i1.SerializationManagerServer {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i5.UserProfile) {
+    if (data is _i5.UserGender) {
+      return 'UserGender';
+    }
+    if (data is _i6.UserProfile) {
       return 'UserProfile';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -161,8 +178,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
+    if (dataClassName == 'UserGender') {
+      return deserialize<_i5.UserGender>(data['data']);
+    }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i5.UserProfile>(data['data']);
+      return deserialize<_i6.UserProfile>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -200,8 +220,8 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i5.UserProfile:
-        return _i5.UserProfile.t;
+      case _i6.UserProfile:
+        return _i6.UserProfile.t;
     }
     return null;
   }

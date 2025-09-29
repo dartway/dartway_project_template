@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import '../user_profile/user_gender.dart' as _i2;
 
 abstract class UserProfile
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
@@ -21,6 +22,7 @@ abstract class UserProfile
     required this.conditionsAcceptedAt,
     required this.firstName,
     this.imageUrl,
+    this.gender,
   });
 
   factory UserProfile({
@@ -31,6 +33,7 @@ abstract class UserProfile
     required DateTime conditionsAcceptedAt,
     required String firstName,
     String? imageUrl,
+    _i2.UserGender? gender,
   }) = _UserProfileImpl;
 
   factory UserProfile.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -44,6 +47,9 @@ abstract class UserProfile
           jsonSerialization['conditionsAcceptedAt']),
       firstName: jsonSerialization['firstName'] as String,
       imageUrl: jsonSerialization['imageUrl'] as String?,
+      gender: jsonSerialization['gender'] == null
+          ? null
+          : _i2.UserGender.fromJson((jsonSerialization['gender'] as String)),
     );
   }
 
@@ -66,6 +72,8 @@ abstract class UserProfile
 
   String? imageUrl;
 
+  _i2.UserGender? gender;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -80,6 +88,7 @@ abstract class UserProfile
     DateTime? conditionsAcceptedAt,
     String? firstName,
     String? imageUrl,
+    _i2.UserGender? gender,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -91,6 +100,7 @@ abstract class UserProfile
       'conditionsAcceptedAt': conditionsAcceptedAt.toJson(),
       'firstName': firstName,
       if (imageUrl != null) 'imageUrl': imageUrl,
+      if (gender != null) 'gender': gender?.toJson(),
     };
   }
 
@@ -104,6 +114,7 @@ abstract class UserProfile
       'conditionsAcceptedAt': conditionsAcceptedAt.toJson(),
       'firstName': firstName,
       if (imageUrl != null) 'imageUrl': imageUrl,
+      if (gender != null) 'gender': gender?.toJson(),
     };
   }
 
@@ -148,6 +159,7 @@ class _UserProfileImpl extends UserProfile {
     required DateTime conditionsAcceptedAt,
     required String firstName,
     String? imageUrl,
+    _i2.UserGender? gender,
   }) : super._(
           id: id,
           userInfoId: userInfoId,
@@ -156,6 +168,7 @@ class _UserProfileImpl extends UserProfile {
           conditionsAcceptedAt: conditionsAcceptedAt,
           firstName: firstName,
           imageUrl: imageUrl,
+          gender: gender,
         );
 
   /// Returns a shallow copy of this [UserProfile]
@@ -170,6 +183,7 @@ class _UserProfileImpl extends UserProfile {
     DateTime? conditionsAcceptedAt,
     String? firstName,
     Object? imageUrl = _Undefined,
+    Object? gender = _Undefined,
   }) {
     return UserProfile(
       id: id is int? ? id : this.id,
@@ -180,6 +194,7 @@ class _UserProfileImpl extends UserProfile {
       conditionsAcceptedAt: conditionsAcceptedAt ?? this.conditionsAcceptedAt,
       firstName: firstName ?? this.firstName,
       imageUrl: imageUrl is String? ? imageUrl : this.imageUrl,
+      gender: gender is _i2.UserGender? ? gender : this.gender,
     );
   }
 }
@@ -210,6 +225,11 @@ class UserProfileTable extends _i1.Table<int?> {
       'imageUrl',
       this,
     );
+    gender = _i1.ColumnEnum(
+      'gender',
+      this,
+      _i1.EnumSerialization.byName,
+    );
   }
 
   late final _i1.ColumnInt userInfoId;
@@ -224,6 +244,8 @@ class UserProfileTable extends _i1.Table<int?> {
 
   late final _i1.ColumnString imageUrl;
 
+  late final _i1.ColumnEnum<_i2.UserGender> gender;
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -233,6 +255,7 @@ class UserProfileTable extends _i1.Table<int?> {
         conditionsAcceptedAt,
         firstName,
         imageUrl,
+        gender,
       ];
 }
 
