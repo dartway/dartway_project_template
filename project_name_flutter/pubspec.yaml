@@ -36,14 +36,17 @@ dependencies:
   dartway_app:
     git:
       url: https://github.com/dartway/dartway_app.git
+      ref: main
   
   dartway_router:
     git:
       url: https://github.com/dartway/dartway_router.git
+      ref: main
 
   dartway_core_serverpod_flutter:
     git:
       url: https://github.com/dartway/dartway_core_serverpod.git
+      ref: main
       path: dartway_core_serverpod_flutter
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,19 +74,19 @@ dev_dependencies:
     git: https://github.com/dartway/dartway_code_checker.git
     # path: ../../dartway_code_checker
 
-dependency_overrides:
-  dartway_app:
-    path:
-      ../../dartway_app
-  dartway_router:
-    path: ../../dartway_router
+# dependency_overrides:
+#   dartway_app:
+#     path:
+#       ../../dartway_app
+#   dartway_router:
+#     path: ../../dartway_router
 
-  dartway_core_serverpod_client: 
-    path: ../../dartway_core_serverpod/dartway_core_serverpod_client
-  dartway_core_serverpod_flutter: 
-    path: ../../dartway_core_serverpod/dartway_core_serverpod_flutter
-  dartway_core_serverpod_shared: 
-    path: ../../dartway_core_serverpod/dartway_core_serverpod_shared
+#   dartway_core_serverpod_client: 
+#     path: ../../dartway_core_serverpod/dartway_core_serverpod_client
+#   dartway_core_serverpod_flutter: 
+#     path: ../../dartway_core_serverpod/dartway_core_serverpod_flutter
+#   dartway_core_serverpod_shared: 
+#     path: ../../dartway_core_serverpod/dartway_core_serverpod_shared
 
 
 # For information on the generic Dart part of this file, see the
