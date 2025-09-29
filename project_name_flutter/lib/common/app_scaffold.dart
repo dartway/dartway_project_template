@@ -15,6 +15,7 @@ class AppScaffold extends ConsumerWidget {
     super.key,
     required this.body,
     this.appBar,
+    this.floatingActionButton,
     this.bodyInsets = const EdgeInsets.all(16),
     this.requireUser = true,
   }) : showBottomNavigationBar = true;
@@ -23,12 +24,14 @@ class AppScaffold extends ConsumerWidget {
     super.key,
     required this.body,
     this.appBar,
+    this.floatingActionButton,
     this.bodyInsets = const EdgeInsets.all(16),
     this.requireUser = true,
   }) : showBottomNavigationBar = false;
 
   final PreferredSizeWidget? appBar;
   final Widget body;
+  final Widget? floatingActionButton;
   final EdgeInsets bodyInsets;
 
   final bool showBottomNavigationBar;
@@ -64,6 +67,7 @@ class AppScaffold extends ConsumerWidget {
               ),
             ],
           ),
+          floatingActionButton: floatingActionButton,
           bottomNavigationBar: showBottomNavigationBar
               ? const DwBottomNavigationBar(
                   bottomNavigationBarTheme: BottomNavigationBarThemeData(

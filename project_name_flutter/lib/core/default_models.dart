@@ -13,5 +13,15 @@ class DefaultModels {
         conditionsAcceptedAt: DateTime.now(),
       ),
     );
+
+    DwRepository.setupRepository(
+      defaultModel: FeedPost(
+        id: DwRepository.mockModelId,
+        title: 'Feed Post',
+        text: 'Feed Post Content',
+        createdAt: DateTime.now(),
+        authorProfileId: DwRepository.mockModelId,
+      ),
+    );
   }
 }

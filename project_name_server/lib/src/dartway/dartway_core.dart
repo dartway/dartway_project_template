@@ -1,4 +1,5 @@
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart';
+import 'package:project_name_server/src/crud/feed_post_crud_config.dart';
 import 'package:project_name_server/src/crud/user_profile_crud_config.dart';
 import 'package:project_name_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
@@ -8,7 +9,10 @@ late final DwCore<UserProfile> dw;
 initDartwayCore(Serverpod serverpod) {
   dw = DwCore.init<UserProfile>(
     userProfileTable: UserProfile.t,
-    crudConfigurations: [userProfileCrudConfig],
+    crudConfigurations: [
+      userProfileCrudConfig,
+      feedPostCrudConfig,
+    ],
     userProfileConstructor: ({
       required int userInfoId,
       required DwAuthDataStash dwDataStash,

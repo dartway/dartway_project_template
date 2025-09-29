@@ -14,8 +14,10 @@ import 'package:serverpod/protocol.dart' as _i2;
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart'
     as _i3;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
-import 'user_profile/user_gender.dart' as _i5;
-import 'user_profile/user_profile.dart' as _i6;
+import 'feed_post/feed_post.dart' as _i5;
+import 'user_profile/user_gender.dart' as _i6;
+import 'user_profile/user_profile.dart' as _i7;
+export 'feed_post/feed_post.dart';
 export 'user_profile/user_gender.dart';
 export 'user_profile/user_profile.dart';
 
@@ -27,6 +29,73 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
+    _i2.TableDefinition(
+      name: 'feed_post',
+      dartName: 'FeedPost',
+      schema: 'public',
+      module: 'project_name',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'feed_post_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'authorProfileId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'title',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'text',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'feed_post_fk_0',
+          columns: ['authorProfileId'],
+          referenceTable: 'user_profile',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'feed_post_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     _i2.TableDefinition(
       name: 'user_profile',
       dartName: 'UserProfile',
@@ -123,17 +192,23 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i5.UserGender) {
-      return _i5.UserGender.fromJson(data) as T;
+    if (t == _i5.FeedPost) {
+      return _i5.FeedPost.fromJson(data) as T;
     }
-    if (t == _i6.UserProfile) {
-      return _i6.UserProfile.fromJson(data) as T;
+    if (t == _i6.UserGender) {
+      return _i6.UserGender.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i5.UserGender?>()) {
-      return (data != null ? _i5.UserGender.fromJson(data) : null) as T;
+    if (t == _i7.UserProfile) {
+      return _i7.UserProfile.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i6.UserProfile?>()) {
-      return (data != null ? _i6.UserProfile.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.FeedPost?>()) {
+      return (data != null ? _i5.FeedPost.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i6.UserGender?>()) {
+      return (data != null ? _i6.UserGender.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i7.UserProfile?>()) {
+      return (data != null ? _i7.UserProfile.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -151,10 +226,13 @@ class Protocol extends _i1.SerializationManagerServer {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i5.UserGender) {
+    if (data is _i5.FeedPost) {
+      return 'FeedPost';
+    }
+    if (data is _i6.UserGender) {
       return 'UserGender';
     }
-    if (data is _i6.UserProfile) {
+    if (data is _i7.UserProfile) {
       return 'UserProfile';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -178,11 +256,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
+    if (dataClassName == 'FeedPost') {
+      return deserialize<_i5.FeedPost>(data['data']);
+    }
     if (dataClassName == 'UserGender') {
-      return deserialize<_i5.UserGender>(data['data']);
+      return deserialize<_i6.UserGender>(data['data']);
     }
     if (dataClassName == 'UserProfile') {
-      return deserialize<_i6.UserProfile>(data['data']);
+      return deserialize<_i7.UserProfile>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -220,8 +301,10 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i6.UserProfile:
-        return _i6.UserProfile.t;
+      case _i5.FeedPost:
+        return _i5.FeedPost.t;
+      case _i7.UserProfile:
+        return _i7.UserProfile.t;
     }
     return null;
   }

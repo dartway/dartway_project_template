@@ -11,14 +11,6 @@ build/
 # Locks
 pubspec.lock
 
-# Platforms (leave only Flutter code)
-ios/
-android/
-macos/
-windows/
-linux/
-project_name_flutter/web/
-
 # OS files
 .DS_Store
 Thumbs.db
@@ -30,7 +22,6 @@ Thumbs.db
 # Logs / coverage
 *.log
 coverage/
-
 
 migrations/
 docker-compose.yaml
