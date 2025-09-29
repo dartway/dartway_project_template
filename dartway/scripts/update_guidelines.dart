@@ -1,41 +1,37 @@
+import 'dart:convert';
 import 'dart:io';
 
 Future<void> main() async {
-  print('🔄 Updating DartWay Guidelines...');
+  print('🔄 Updating DartWay Guidelines for Project Template (no subtree)...');
 
   await _ensureRemote();
 
-  // 1. Подтянуть свежую версию через git subtree
-  final pull = await Process.run('git', [
-    'subtree',
-    'pull',
-    '--prefix=dartway/guidelines',
+  // 1. Подтянуть свежие изменения из remote
+  final fetch = await Process.run('git', [
+    'fetch',
     'dartway_guidelines',
     'main',
-    '--squash',
   ]);
-
-  if (pull.exitCode != 0) {
-    stderr.writeln('❌ Git subtree pull failed:\n${pull.stderr}');
-    stderr.writeln(
-      '💡 Hint: Commit or stash your changes before running update.',
-    );
+  if (fetch.exitCode != 0) {
+    stderr.writeln('❌ Git fetch failed:\n${fetch.stderr}');
     exit(1);
   }
-  print('✅ Guidelines updated from remote.');
+  print('✅ Guidelines fetched from remote.');
 
   // 2. Foundations → .cursor/rules/foundations
-  _copyRules(
-    'dartway/guidelines/dev-guidelines/foundations',
+  _copyDocsFromGit(
+    'dev-guidelines/foundations',
     '.cursor/rules/dartway_rules',
+    changeExtensionToMdc: true,
   );
 
   // 3. Flutter → <project_name>_flutter/.cursor/rules/flutter
   final flutterDir = _findDirWithSuffix('_flutter');
   if (flutterDir != null) {
-    _copyRules(
-      'dartway/guidelines/dev-guidelines/flutter',
+    _copyDocsFromGit(
+      'dev-guidelines/flutter',
       '${flutterDir.path}/.cursor/rules/dartway_rules',
+      changeExtensionToMdc: true,
     );
   } else {
     print('⚠️ No *_flutter directory found');
@@ -44,15 +40,19 @@ Future<void> main() async {
   // 4. Server → <project_name>_server/.cursor/rules/server
   final serverDir = _findDirWithSuffix('_server');
   if (serverDir != null) {
-    _copyRules(
-      'dartway/guidelines/dev-guidelines/server',
+    _copyDocsFromGit(
+      'dev-guidelines/server',
       '${serverDir.path}/.cursor/rules/dartway_rules',
+      changeExtensionToMdc: true,
     );
   } else {
     print('⚠️ No *_server directory found');
   }
 
-  print('✨ Guidelines distributed successfully!');
+  // 5. Docs → project_template/docs
+  _copyDocsFromGit('docs', 'project_template/docs');
+
+  print('✨ Guidelines synced into Project Template!');
 }
 
 Future<void> _ensureRemote() async {
@@ -95,35 +95,68 @@ Directory? _findDirWithSuffix(String suffix) {
   return null;
 }
 
-void _copyRules(String source, String destination) {
-  final srcDir = Directory(source);
-  if (!srcDir.existsSync()) {
-    print('⚠️ Source not found: $source');
-    return;
+void _copyDocsFromGit(
+  String sourcePath,
+  String destinationPath, {
+  bool changeExtensionToMdc = false,
+}) {
+  final destDir = Directory(destinationPath);
+  if (!destDir.existsSync()) {
+    destDir.createSync(recursive: true);
   }
 
-  final destDir = Directory(destination);
-  if (destDir.existsSync()) {
-    destDir.deleteSync(recursive: true);
-  }
-  destDir.createSync(recursive: true);
-
-  for (final entity in srcDir.listSync(recursive: true)) {
-    if (entity is File && entity.path.endsWith('.md')) {
-      final relativePath = entity.path
-          .replaceFirst(srcDir.path, '')
-          .replaceAll('\\', '/'); // fix for Windows
-
-      // меняем расширение на .mdc
-      final destRelative = relativePath.replaceAll(RegExp(r'\.md$'), '.mdc');
-      final destFile = File('${destDir.path}$destRelative');
-
-      destFile.parent.createSync(recursive: true);
-      entity.copySync(destFile.path);
-
-      print('📄 ${entity.path} → ${destFile.path}');
+  // удаляем старые файлы (.md и .mdc), оставляем служебные json
+  for (final entity in destDir.listSync(recursive: true)) {
+    if (entity is File &&
+        (entity.path.endsWith('.md') || entity.path.endsWith('.mdc'))) {
+      entity.deleteSync();
     }
   }
 
-  print('📂 Copied rules: $source → $destination');
+  // достаём список файлов в директории из remote
+  final lsTree = Process.runSync('git', [
+    'ls-tree',
+    '-r',
+    '--name-only',
+    'dartway_guidelines/main',
+    sourcePath,
+  ]);
+
+  if (lsTree.exitCode != 0) {
+    stderr.writeln('⚠️ Failed to list files for $sourcePath: ${lsTree.stderr}');
+    return;
+  }
+
+  final files = (lsTree.stdout as String)
+      .split('\n')
+      .where((f) => f.endsWith('.md'));
+
+  for (final file in files) {
+    if (file.isEmpty) continue;
+
+    final content = Process.runSync('git', [
+      'show',
+      'dartway_guidelines/main:$file',
+    ], stdoutEncoding: utf8);
+
+    if (content.exitCode != 0) {
+      stderr.writeln('⚠️ Failed to read file $file: ${content.stderr}');
+      continue;
+    }
+
+    final relativePath = file.replaceFirst(sourcePath, '');
+    var destFilePath = '$destinationPath$relativePath';
+
+    if (changeExtensionToMdc) {
+      destFilePath = destFilePath.replaceAll(RegExp(r'\.md$'), '.mdc');
+    }
+
+    final destFile = File(destFilePath);
+    destFile.parent.createSync(recursive: true);
+    destFile.writeAsStringSync(content.stdout as String, encoding: utf8);
+
+    print('📄 $file → ${destFile.path}');
+  }
+
+  print('📂 Copied docs: $sourcePath → $destinationPath');
 }

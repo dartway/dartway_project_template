@@ -13,9 +13,10 @@ alwaysApply: true
 ✅ Use DartWay built-in notification system:
 
 ```dart
-ref.notifySuccess('Profile updated!');
-ref.notifyError('Failed to save changes');
-ref.notifyInfo('Loading...');
+dw.notify.success('Profile updated!');
+dw.notify.warning('Data provided is not fully correct');
+dw.notify.error('Failed to save changes');
+dw.notify.info('Loading...');
 ```
 
 This ensures a unified UI and centralized control over messages.
