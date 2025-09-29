@@ -15,7 +15,9 @@ class AuthState extends _$AuthState {
     return const AuthStateModel(
       currentStep: AuthStep.greeting,
       firstName: '',
-      phoneRaw: kDebugMode ? '+7 (995) 900-29-01' : '',
+      phoneRaw: kDebugMode
+          ? ''
+          : '', // you can change it to your phone number for testing
       otpRaw: '',
       allDocumentsAccepted: false,
       marketingAgreed: false,
@@ -42,7 +44,7 @@ class AuthState extends _$AuthState {
     );
   }
 
-  /// Отправка кода
+  /// OTP request
   Future<void> requestOtp() async {
     final userExists = await ref
         .read(dwPhoneAuthStateProvider.notifier)
