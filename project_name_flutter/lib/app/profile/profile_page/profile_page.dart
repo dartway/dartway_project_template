@@ -1,4 +1,3 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -14,7 +13,7 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold.main(
       appBar: AppBar(
-        title: const AppText.title('Profile'),
+        title: AppText.title('Profile'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -23,7 +22,7 @@ class ProfilePage extends ConsumerWidget {
             const Gap(24),
             AppButton.text(
               'Sign out',
-              dwCallback: DwCallback.create(
+              dwCallback: DwUiAction.create(
                 () => ref.signOut(),
               ),
             ),

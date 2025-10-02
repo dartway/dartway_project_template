@@ -3,7 +3,7 @@ part of '../ui_kit.dart';
 class AppButton extends StatelessWidget {
   final String label;
   final _AppButtonStyle _variant;
-  final DwCallback<dynamic>? dwCallback;
+  final DwUiAction<dynamic>? dwCallback;
   final Widget? leading;
   final Widget? trailing;
   final bool showProgress;

@@ -1,5 +1,5 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
+import 'package:dartway_flutter/dartway_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -67,7 +67,7 @@ class ProfileSettingsWidget extends HookConsumerWidget {
           const Gap(16),
 
           // Gender Selector
-          const AppText.body('Gender'),
+          const DwText('Gender', textStyle: AppText.body),
           const Gap(8),
           DropdownButtonFormField<UserGender>(
             value: selectedGender.value,
@@ -99,7 +99,7 @@ class ProfileSettingsWidget extends HookConsumerWidget {
           if (hasChanges.value) ...[
             AppButton.primary(
               'Save Changes',
-              dwCallback: DwCallback.create(
+              dwCallback: DwUiAction.create(
                 () async {
                   await ref.saveModel(
                     userProfile.copyWith(

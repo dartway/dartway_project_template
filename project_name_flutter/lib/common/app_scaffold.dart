@@ -1,12 +1,11 @@
-import 'package:conditional_parent_widget/conditional_parent_widget.dart';
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
+import 'package:dartway_flutter/dartway_flutter.dart';
 import 'package:dartway_router/dartway_router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_name_client/project_name_client.dart';
 import 'package:project_name_flutter/build_info.dart';
 import 'package:project_name_flutter/core/router/router.dart';
-import 'package:project_name_flutter/ui_kit/ui_kit.dart';
 
 import '../core/user_profile_provider.dart';
 
@@ -39,7 +38,7 @@ class AppScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return NitDeviceFrame(
+    return DwDeviceFrame(
       body: ConditionalParentWidget(
         condition: requireUser,
         parentBuilder: (child) => SignedInUserScope<UserProfile>(

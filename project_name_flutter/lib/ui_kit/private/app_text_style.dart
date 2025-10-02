@@ -1,26 +1,35 @@
 part of '../ui_kit.dart';
 
-enum _AppTextStyle {
+enum AppText implements DwTextStylePreset {
   title,
   body,
+  link,
   caption;
 
-  TextStyle _resolve(BuildContext context) {
-    final theme = Theme.of(context);
-    final tt = theme.textTheme;
-    final cs = theme.colorScheme;
-
+  @override
+  TextStyle resolveStyle(BuildContext context) {
     switch (this) {
-      case _AppTextStyle.title:
-        return (tt.titleLarge ??
+      case AppText.title:
+        return (context.textTheme.titleLarge ??
                 const TextStyle(fontSize: 20, fontWeight: FontWeight.w600))
-            .copyWith(color: cs.onSurface);
-      case _AppTextStyle.body:
-        return (tt.bodyMedium ?? const TextStyle(fontSize: 16))
-            .copyWith(color: cs.onSurface);
-      case _AppTextStyle.caption:
-        return (tt.labelSmall ?? const TextStyle(fontSize: 12))
-            .copyWith(color: cs.onSurface.withValues(alpha: 0.7));
+            .copyWith(
+          color: context.colorScheme.onSurface,
+        );
+      case AppText.body:
+        return (context.textTheme.bodyMedium ?? const TextStyle(fontSize: 16))
+            .copyWith(
+          color: context.colorScheme.onSurface,
+        );
+      case AppText.link:
+        return (context.textTheme.bodyMedium ?? const TextStyle(fontSize: 16))
+            .copyWith(
+          color: context.colorScheme.primary,
+        );
+      case AppText.caption:
+        return (context.textTheme.labelSmall ?? const TextStyle(fontSize: 12))
+            .copyWith(
+          color: context.colorScheme.onSurface.withValues(alpha: 0.7),
+        );
     }
   }
 }
