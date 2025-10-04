@@ -6,6 +6,14 @@ enum AppNavigationZone implements NavigationZoneRoute {
       page: HomePage(),
     ),
   ),
+  // post(
+  //   ParameterizedNavigationRouteDescriptor(
+  //     page: PostPage(),
+  //     parameter: AppNavigationParams.postId,
+  //     parent: AppNavigationZone.home,
+  //     pathSegmentTemplate: 'post/$dwParameterSubstitutionPattern',
+  //   ),
+  // ),
 
   profile(
     SimpleNavigationRouteDescriptor(

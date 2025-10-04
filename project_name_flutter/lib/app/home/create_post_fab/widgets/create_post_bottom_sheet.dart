@@ -1,5 +1,4 @@
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
-import 'package:dartway_flutter/dartway_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -151,7 +150,7 @@ class CreatePostBottomSheet extends HookConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: AppButton.secondary(
+                child: DwButton.secondary(
                   'Cancel',
                   dwCallback: DwUiAction.create(
                     () => Navigator.of(context).pop(),
@@ -160,7 +159,7 @@ class CreatePostBottomSheet extends HookConsumerWidget {
               ),
               const Gap(12),
               Expanded(
-                child: AppButton.primary(
+                child: DwButton.primary(
                   'Post',
                   dwCallback: isFormValid.value
                       ? DwUiAction.create(

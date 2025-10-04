@@ -114,7 +114,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
           ),
         const Spacer(),
         const SizedBox(height: 20),
-        AppButton.primary(
+        DwButton.primary(
           'Continue',
           requireValidation: true,
           dwCallback: DwUiAction.create(() async {

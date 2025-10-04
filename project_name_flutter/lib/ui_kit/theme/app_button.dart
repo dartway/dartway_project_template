@@ -1,14 +1,15 @@
 part of '../ui_kit.dart';
 
-enum _AppButtonStyle {
+enum AppButton implements DwButtonStylePreset {
   primary,
   secondary,
   text;
 
-  ButtonStyle styleOf(BuildContext context) {
+  @override
+  ButtonStyle resolveStyle(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     switch (this) {
-      case _AppButtonStyle.primary:
+      case AppButton.primary:
         return ElevatedButton.styleFrom(
           backgroundColor: cs.primary,
           foregroundColor: cs.onPrimary,
@@ -16,7 +17,7 @@ enum _AppButtonStyle {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         );
-      case _AppButtonStyle.secondary:
+      case AppButton.secondary:
         return OutlinedButton.styleFrom(
           foregroundColor: cs.primary,
           side: BorderSide(color: cs.primary),
@@ -24,7 +25,7 @@ enum _AppButtonStyle {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         );
-      case _AppButtonStyle.text:
+      case AppButton.text:
         return TextButton.styleFrom(
           foregroundColor: cs.primary,
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),

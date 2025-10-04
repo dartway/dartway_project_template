@@ -8,5 +8,6 @@ fields:
   conditionsAcceptedAt: DateTime
 
   firstName: String
+  lastName: String?
   imageUrl: String?
   gender: UserGender?

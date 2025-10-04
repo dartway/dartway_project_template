@@ -58,7 +58,7 @@ class VerifyOtpBlock extends HookConsumerWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: AppButton.primary(
+            child: DwButton.primary(
               'Continue',
               requireValidation: true,
               dwCallback: DwUiAction.create(

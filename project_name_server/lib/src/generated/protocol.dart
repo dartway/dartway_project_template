@@ -17,9 +17,11 @@ import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i4;
 import 'feed_post/feed_post.dart' as _i5;
 import 'user_profile/user_gender.dart' as _i6;
 import 'user_profile/user_profile.dart' as _i7;
+import 'water_intake.dart' as _i8;
 export 'feed_post/feed_post.dart';
 export 'user_profile/user_gender.dart';
 export 'user_profile/user_profile.dart';
+export 'water_intake.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -140,6 +142,12 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
+          name: 'lastName',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
           name: 'imageUrl',
           columnType: _i2.ColumnType.text,
           isNullable: true,
@@ -181,6 +189,67 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'water_intake',
+      dartName: 'WaterIntake',
+      schema: 'public',
+      module: 'project_name',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'water_intake_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userProfileId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'intakeAmount',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'intakeTime',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'water_intake_fk_0',
+          columns: ['userProfileId'],
+          referenceTable: 'user_profile',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'water_intake_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     ..._i3.Protocol.targetTableDefinitions,
     ..._i4.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
@@ -201,6 +270,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i7.UserProfile) {
       return _i7.UserProfile.fromJson(data) as T;
     }
+    if (t == _i8.WaterIntake) {
+      return _i8.WaterIntake.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i5.FeedPost?>()) {
       return (data != null ? _i5.FeedPost.fromJson(data) : null) as T;
     }
@@ -209,6 +281,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == _i1.getType<_i7.UserProfile?>()) {
       return (data != null ? _i7.UserProfile.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i8.WaterIntake?>()) {
+      return (data != null ? _i8.WaterIntake.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -234,6 +309,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (data is _i7.UserProfile) {
       return 'UserProfile';
+    }
+    if (data is _i8.WaterIntake) {
+      return 'WaterIntake';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -264,6 +342,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'UserProfile') {
       return deserialize<_i7.UserProfile>(data['data']);
+    }
+    if (dataClassName == 'WaterIntake') {
+      return deserialize<_i8.WaterIntake>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -305,6 +386,8 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i5.FeedPost.t;
       case _i7.UserProfile:
         return _i7.UserProfile.t;
+      case _i8.WaterIntake:
+        return _i8.WaterIntake.t;
     }
     return null;
   }

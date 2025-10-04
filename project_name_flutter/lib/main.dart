@@ -2,7 +2,6 @@
 import 'dart:io';
 
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
-import 'package:dartway_flutter/dartway_flutter.dart';
 // ignore: unused_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +29,9 @@ void main() async {
           DwFlutterTheme(
             multiLinkText: AppText.body,
             multiLinkTextLink: AppText.link,
+            primaryButton: AppButton.primary,
+            secondaryButton: AppButton.secondary,
+            textButton: AppButton.text,
           ),
         ],
       ),

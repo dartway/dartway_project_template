@@ -23,7 +23,7 @@ class GreetingBlock extends ConsumerWidget {
         const Spacer(
           flex: 1,
         ),
-        AppButton.primary(
+        DwButton.primary(
           'Registration',
           height: 40,
           width: 250,
@@ -34,7 +34,7 @@ class GreetingBlock extends ConsumerWidget {
           ),
         ),
         const Gap(20),
-        AppButton.secondary(
+        DwButton.secondary(
           'Login',
           height: 40,
           width: 250,

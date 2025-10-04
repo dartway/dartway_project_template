@@ -1,6 +1,7 @@
 import 'package:dartway_core_serverpod_server/dartway_core_serverpod_server.dart';
 import 'package:project_name_server/src/crud/feed_post_crud_config.dart';
 import 'package:project_name_server/src/crud/user_profile_crud_config.dart';
+import 'package:project_name_server/src/crud/water_intake_crud_config.dart';
 import 'package:project_name_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -12,6 +13,7 @@ initDartwayCore(Serverpod serverpod) {
     crudConfigurations: [
       userProfileCrudConfig,
       feedPostCrudConfig,
+      waterIntakeCrudConfig
     ],
     userProfileConstructor: ({
       required int userInfoId,

@@ -2,7 +2,7 @@ import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.da
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:project_name_flutter/app/profile/profile_settings/profile_settings_widget.dart';
+import 'package:project_name_flutter/app/profile/profile_page/widgets/profile_settings_widget.dart';
 import 'package:project_name_flutter/common/app_scaffold.dart';
 import 'package:project_name_flutter/ui_kit/ui_kit.dart';
 
@@ -20,7 +20,7 @@ class ProfilePage extends ConsumerWidget {
           children: [
             const ProfileSettingsWidget(),
             const Gap(24),
-            AppButton.text(
+            DwButton.text(
               'Sign out',
               dwCallback: DwUiAction.create(
                 () => ref.signOut(),
