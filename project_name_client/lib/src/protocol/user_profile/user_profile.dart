@@ -20,6 +20,7 @@ abstract class UserProfile implements _i1.SerializableModel {
     required this.agreedForMarketingCommunications,
     required this.conditionsAcceptedAt,
     required this.firstName,
+    this.lastName,
     this.imageUrl,
     this.gender,
   });
@@ -31,6 +32,7 @@ abstract class UserProfile implements _i1.SerializableModel {
     required bool agreedForMarketingCommunications,
     required DateTime conditionsAcceptedAt,
     required String firstName,
+    String? lastName,
     String? imageUrl,
     _i2.UserGender? gender,
   }) = _UserProfileImpl;
@@ -45,6 +47,7 @@ abstract class UserProfile implements _i1.SerializableModel {
       conditionsAcceptedAt: _i1.DateTimeJsonExtension.fromJson(
           jsonSerialization['conditionsAcceptedAt']),
       firstName: jsonSerialization['firstName'] as String,
+      lastName: jsonSerialization['lastName'] as String?,
       imageUrl: jsonSerialization['imageUrl'] as String?,
       gender: jsonSerialization['gender'] == null
           ? null
@@ -67,6 +70,8 @@ abstract class UserProfile implements _i1.SerializableModel {
 
   String firstName;
 
+  String? lastName;
+
   String? imageUrl;
 
   _i2.UserGender? gender;
@@ -81,6 +86,7 @@ abstract class UserProfile implements _i1.SerializableModel {
     bool? agreedForMarketingCommunications,
     DateTime? conditionsAcceptedAt,
     String? firstName,
+    String? lastName,
     String? imageUrl,
     _i2.UserGender? gender,
   });
@@ -93,6 +99,7 @@ abstract class UserProfile implements _i1.SerializableModel {
       'agreedForMarketingCommunications': agreedForMarketingCommunications,
       'conditionsAcceptedAt': conditionsAcceptedAt.toJson(),
       'firstName': firstName,
+      if (lastName != null) 'lastName': lastName,
       if (imageUrl != null) 'imageUrl': imageUrl,
       if (gender != null) 'gender': gender?.toJson(),
     };
@@ -114,6 +121,7 @@ class _UserProfileImpl extends UserProfile {
     required bool agreedForMarketingCommunications,
     required DateTime conditionsAcceptedAt,
     required String firstName,
+    String? lastName,
     String? imageUrl,
     _i2.UserGender? gender,
   }) : super._(
@@ -123,6 +131,7 @@ class _UserProfileImpl extends UserProfile {
           agreedForMarketingCommunications: agreedForMarketingCommunications,
           conditionsAcceptedAt: conditionsAcceptedAt,
           firstName: firstName,
+          lastName: lastName,
           imageUrl: imageUrl,
           gender: gender,
         );
@@ -138,6 +147,7 @@ class _UserProfileImpl extends UserProfile {
     bool? agreedForMarketingCommunications,
     DateTime? conditionsAcceptedAt,
     String? firstName,
+    Object? lastName = _Undefined,
     Object? imageUrl = _Undefined,
     Object? gender = _Undefined,
   }) {
@@ -149,6 +159,7 @@ class _UserProfileImpl extends UserProfile {
           this.agreedForMarketingCommunications,
       conditionsAcceptedAt: conditionsAcceptedAt ?? this.conditionsAcceptedAt,
       firstName: firstName ?? this.firstName,
+      lastName: lastName is String? ? lastName : this.lastName,
       imageUrl: imageUrl is String? ? imageUrl : this.imageUrl,
       gender: gender is _i2.UserGender? ? gender : this.gender,
     );

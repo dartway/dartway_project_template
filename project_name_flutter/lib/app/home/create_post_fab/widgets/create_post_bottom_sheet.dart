@@ -1,4 +1,3 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:dartway_core_serverpod_flutter/dartway_core_serverpod_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -104,7 +103,7 @@ class CreatePostBottomSheet extends HookConsumerWidget {
           const Gap(16),
 
           // Title
-          const AppText.title('Create New Post'),
+          const DwText('Create New Post', textStyle: AppText.title),
           const Gap(24),
 
           // Title field
@@ -151,19 +150,19 @@ class CreatePostBottomSheet extends HookConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: AppButton.secondary(
+                child: DwButton.secondary(
                   'Cancel',
-                  dwCallback: DwCallback.create(
+                  dwCallback: DwUiAction.create(
                     () => Navigator.of(context).pop(),
                   ),
                 ),
               ),
               const Gap(12),
               Expanded(
-                child: AppButton.primary(
+                child: DwButton.primary(
                   'Post',
                   dwCallback: isFormValid.value
-                      ? DwCallback.create(
+                      ? DwUiAction.create(
                           createPost,
                           onSuccessNotification: 'Post created successfully!',
                         )

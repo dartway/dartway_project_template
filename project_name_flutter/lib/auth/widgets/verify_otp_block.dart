@@ -1,4 +1,3 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,8 +20,9 @@ class VerifyOtpBlock extends HookConsumerWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: AppText.title(
+            child: DwText(
               'Enter the code from SMS',
+              textStyle: AppText.title,
             ),
           ),
           const Gap(12),
@@ -58,10 +58,10 @@ class VerifyOtpBlock extends HookConsumerWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: AppButton.primary(
+            child: DwButton.primary(
               'Continue',
               requireValidation: true,
-              dwCallback: DwCallback.create(
+              dwCallback: DwUiAction.create(
                 ref.read(authStateProvider.notifier).verifyOtp,
               ),
             ),

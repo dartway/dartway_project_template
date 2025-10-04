@@ -1,4 +1,3 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -32,9 +31,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
 
     return Column(
       children: [
-        const AppText.title(
-          'Fill registration data',
-        ),
+        const DwText('Fill registration data', textStyle: AppText.title),
         const Gap(36),
         if (isRegistration)
           Padding(
@@ -117,10 +114,10 @@ class PhoneEntryBlock extends HookConsumerWidget {
           ),
         const Spacer(),
         const SizedBox(height: 20),
-        AppButton.primary(
+        DwButton.primary(
           'Continue',
           requireValidation: true,
-          dwCallback: DwCallback.create(() async {
+          dwCallback: DwUiAction.create(() async {
             await ref.read(authStateProvider.notifier).requestOtp();
           }),
         ),
@@ -129,7 +126,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
             ? MultiLinkText.single(
                 text: 'Already have an account? ',
                 linkText: 'Login',
-                onLinkTap: DwCallback.create(
+                onLinkTap: DwUiAction.create(
                   () =>
                       ref.read(authStateProvider.notifier).goTo(AuthStep.login),
                 ),
@@ -137,7 +134,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
             : MultiLinkText.single(
                 text: 'Still no account? ',
                 linkText: 'Registration',
-                onLinkTap: DwCallback.create(
+                onLinkTap: DwUiAction.create(
                   () => ref
                       .read(authStateProvider.notifier)
                       .goTo(AuthStep.registration),

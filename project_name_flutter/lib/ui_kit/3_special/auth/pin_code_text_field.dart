@@ -34,7 +34,7 @@ class PinCodeTextFieldWidget extends HookWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       autoDisposeControllers: false,
       onChanged: onChanged,
-      textStyle: _AppTextStyle.body._resolve(context).copyWith(
+      textStyle: AppText.body.resolveStyle(context).copyWith(
             color: context.colorScheme.onSurface,
           ),
       validator: (value) => externalError ?? internalValidator?.call(value),

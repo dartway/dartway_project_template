@@ -13,12 +13,14 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'feed_post/feed_post.dart' as _i2;
 import 'user_profile/user_gender.dart' as _i3;
 import 'user_profile/user_profile.dart' as _i4;
+import 'water_intake.dart' as _i5;
 import 'package:dartway_core_serverpod_client/dartway_core_serverpod_client.dart'
-    as _i5;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i6;
+    as _i6;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i7;
 export 'feed_post/feed_post.dart';
 export 'user_profile/user_gender.dart';
 export 'user_profile/user_profile.dart';
+export 'water_intake.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -43,6 +45,9 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i4.UserProfile) {
       return _i4.UserProfile.fromJson(data) as T;
     }
+    if (t == _i5.WaterIntake) {
+      return _i5.WaterIntake.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i2.FeedPost?>()) {
       return (data != null ? _i2.FeedPost.fromJson(data) : null) as T;
     }
@@ -52,11 +57,14 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i4.UserProfile?>()) {
       return (data != null ? _i4.UserProfile.fromJson(data) : null) as T;
     }
-    try {
-      return _i5.Protocol().deserialize<T>(data, t);
-    } on _i1.DeserializationTypeNotFoundException catch (_) {}
+    if (t == _i1.getType<_i5.WaterIntake?>()) {
+      return (data != null ? _i5.WaterIntake.fromJson(data) : null) as T;
+    }
     try {
       return _i6.Protocol().deserialize<T>(data, t);
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
+    try {
+      return _i7.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -74,11 +82,14 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i4.UserProfile) {
       return 'UserProfile';
     }
-    className = _i5.Protocol().getClassNameForObject(data);
+    if (data is _i5.WaterIntake) {
+      return 'WaterIntake';
+    }
+    className = _i6.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'dartway_core_serverpod.$className';
     }
-    className = _i6.Protocol().getClassNameForObject(data);
+    className = _i7.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -100,13 +111,16 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'UserProfile') {
       return deserialize<_i4.UserProfile>(data['data']);
     }
+    if (dataClassName == 'WaterIntake') {
+      return deserialize<_i5.WaterIntake>(data['data']);
+    }
     if (dataClassName.startsWith('dartway_core_serverpod.')) {
       data['className'] = dataClassName.substring(23);
-      return _i5.Protocol().deserializeByClassName(data);
+      return _i6.Protocol().deserializeByClassName(data);
     }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i6.Protocol().deserializeByClassName(data);
+      return _i7.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

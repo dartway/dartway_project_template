@@ -1,4 +1,3 @@
-import 'package:dartway_app/dartway_app.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,28 +16,29 @@ class GreetingBlock extends ConsumerWidget {
         const Spacer(
           flex: 2,
         ),
-        const AppText.title('DartWay.dev'),
+        const DwText('DartWay.dev', textStyle: AppText.title),
         const Gap(12),
-        const AppText.body('Complete login or registration to continue'),
+        const DwText('Complete login or registration to continue',
+            textStyle: AppText.body),
         const Spacer(
           flex: 1,
         ),
-        AppButton.primary(
+        DwButton.primary(
           'Registration',
           height: 40,
           width: 250,
-          dwCallback: DwCallback.create(
+          dwCallback: DwUiAction.create(
             () => ref
                 .read(authStateProvider.notifier)
                 .goTo(AuthStep.registration),
           ),
         ),
         const Gap(20),
-        AppButton.secondary(
+        DwButton.secondary(
           'Login',
           height: 40,
           width: 250,
-          dwCallback: DwCallback.create(
+          dwCallback: DwUiAction.create(
             () => ref.read(authStateProvider.notifier).goTo(AuthStep.login),
           ),
         ),

@@ -33,20 +33,20 @@ dependencies:
   freezed_annotation: ^2.4.4
   riverpod_annotation: ^2.6.1
 
-  dartway_app:
+  dartway_flutter:
     git:
-      url: https://github.com/dartway/dartway_app.git
-      ref: main
+      url: https://github.com/dartway/dartway_flutter.git
+      ref: master
   
   dartway_router:
     git:
       url: https://github.com/dartway/dartway_router.git
-      ref: main
+      ref: master
 
   dartway_core_serverpod_flutter:
     git:
       url: https://github.com/dartway/dartway_core_serverpod.git
-      ref: main
+      ref: master
       path: dartway_core_serverpod_flutter
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,9 +56,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   flutter_multi_formatter: ^2.13.8
   collection: ^1.19.1
-  conditional_parent_widget: ^0.0.2
-  adaptive_breakpoints: ^0.1.7
-  device_frame: ^1.3.0
+
 
 dev_dependencies:
   flutter_lints: '>=3.0.0 <7.0.0'
@@ -75,9 +73,9 @@ dev_dependencies:
     # path: ../../dartway_code_checker
 
 # dependency_overrides:
-#   dartway_app:
+#   dartway_flutter:
 #     path:
-#       ../../dartway_app
+#       ../../dartway_flutter
 #   dartway_router:
 #     path: ../../dartway_router
 

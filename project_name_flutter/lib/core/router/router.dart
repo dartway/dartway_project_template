@@ -9,8 +9,11 @@ import 'package:project_name_flutter/auth/auth_page.dart';
 part 'navigation_zones/app_navigation_zone.dart';
 part 'navigation_zones/auth_navigation_zone.dart';
 
-// enum AppNavigationParams<T> with NavigationParamsMixin<T> {
-// }
+enum AppNavigationParams<T> with NavigationParamsMixin<T> {
+  userId<int>(),
+  postId<int>(),
+  chatId<int>(),
+}
 
 final appRouterProvider = dwRouterStateProvider(
   DwRouter.config().addNavigationZones([
