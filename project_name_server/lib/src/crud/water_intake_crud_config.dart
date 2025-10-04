@@ -6,6 +6,6 @@ final waterIntakeCrudConfig = DwCrudConfig<WaterIntake>(
   getListConfig: DwGetListConfig(),
   saveConfig: DwSaveConfig<WaterIntake>(
     allowSave: (session, initialModel, newModel) async =>
-        session.isUser(newModel.userProfile!.id!),
+        session.isUser(newModel.userProfileId),
   ),
 );

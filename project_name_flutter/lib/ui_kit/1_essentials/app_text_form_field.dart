@@ -110,12 +110,14 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   @override
   void didUpdateWidget(covariant AppTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Synchronize the controller if the external value has changed.
+
     if (widget.value != _lastExternalValue &&
         widget.value != _controller.text) {
-      _syncControllerText(widget.value,
-          placeCursorAtEnd: widget.cursorToEndOnExternalUpdate);
-      _lastExternalValue = widget.value;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _syncControllerText(widget.value,
+            placeCursorAtEnd: widget.cursorToEndOnExternalUpdate);
+        _lastExternalValue = widget.value;
+      });
     }
   }
 
@@ -123,7 +125,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     final text = _controller.text;
     if (text != _lastExternalValue) {
       _lastExternalValue = text;
-      widget.onChanged(text);
+
+      // делаем отложенный вызов
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onChanged(text);
+      });
     }
   }
 

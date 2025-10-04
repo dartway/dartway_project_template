@@ -6,6 +6,8 @@ import 'package:project_name_flutter/app/profile/profile_page/widgets/profile_se
 import 'package:project_name_flutter/common/app_scaffold.dart';
 import 'package:project_name_flutter/ui_kit/ui_kit.dart';
 
+import '../water_intake/water_intake_widget.dart';
+
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
@@ -19,6 +21,8 @@ class ProfilePage extends ConsumerWidget {
         child: Column(
           children: [
             const ProfileSettingsWidget(),
+            const Gap(24),
+            const WaterIntakeWidget(),
             const Gap(24),
             DwButton.text(
               'Sign out',

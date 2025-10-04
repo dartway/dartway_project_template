@@ -26,8 +26,8 @@ class WaterIntakeWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     waterIntakes.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    (index) => const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
                       child:
                           Icon(Icons.local_drink, color: Colors.blue, size: 32),
                     ),

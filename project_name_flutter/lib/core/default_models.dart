@@ -23,5 +23,14 @@ class DefaultModels {
         authorProfileId: DwRepository.mockModelId,
       ),
     );
+
+    DwRepository.setupRepository(
+      defaultModel: WaterIntake(
+        id: DwRepository.mockModelId,
+        userProfileId: DwRepository.mockModelId,
+        intakeAmount: 1000,
+        intakeTime: DateTime.now(),
+      ),
+    );
   }
 }

@@ -27,7 +27,7 @@ class PhoneEntryBlock extends HookConsumerWidget {
       _ => throw UnimplementedError(),
     };
 
-    print('isRegistration: $isRegistration');
+    // print('isRegistration: $isRegistration');
 
     return Column(
       children: [

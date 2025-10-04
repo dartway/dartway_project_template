@@ -3,8 +3,6 @@ import 'package:dartway_flutter/dartway_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_name_client/project_name_client.dart';
-import 'package:project_name_flutter/core/app_backend_filters.dart';
-import 'package:project_name_flutter/core/user_profile_provider.dart';
 
 import 'widgets/feed_post_card.dart';
 
@@ -13,13 +11,7 @@ class FeedPostList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref
-        .watchModelList<FeedPost>(
-          backendFilter: AppBackendFilters.userRecentPosts(
-            ref.watchUserProfile.id!,
-          ),
-        )
-        .dwBuildListAsync(
+    return ref.watchModelList<FeedPost>().dwBuildListAsync(
           loadingItemsCount: 5,
           childBuilder: (feedPosts) {
             if (feedPosts.isEmpty) {
