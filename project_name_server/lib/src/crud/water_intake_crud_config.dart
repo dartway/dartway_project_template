@@ -8,4 +8,7 @@ final waterIntakeCrudConfig = DwCrudConfig<WaterIntake>(
     allowSave: (session, initialModel, newModel) async =>
         session.isUser(newModel.userProfileId),
   ),
+  deleteConfig: DwDeleteConfig<WaterIntake>(
+    allowDelete: (session, model) async => session.isUser(model.userProfileId),
+  ),
 );

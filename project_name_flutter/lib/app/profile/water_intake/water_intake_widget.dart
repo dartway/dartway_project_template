@@ -26,11 +26,15 @@ class WaterIntakeWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     waterIntakes.length,
-                    (index) => const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.0),
-                      child:
-                          Icon(Icons.local_drink, color: Colors.blue, size: 32),
-                    ),
+                    (index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: InkWell(
+                          onTap: () {
+                            ref.deleteModel(waterIntakes[index]);
+                          },
+                          child: const Icon(Icons.local_drink,
+                              color: Colors.blue, size: 32),
+                        )),
                   ),
                 ),
                 const SizedBox(height: 16),
